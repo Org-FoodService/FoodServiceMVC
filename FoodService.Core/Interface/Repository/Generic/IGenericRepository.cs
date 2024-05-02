@@ -1,4 +1,4 @@
-﻿namespace FoodService.Interface.Repository.Generic
+﻿namespace FoodService.Core.Interface.Repository.Generic
 {
     public interface IGenericRepository<T, TKey>
         where T : class

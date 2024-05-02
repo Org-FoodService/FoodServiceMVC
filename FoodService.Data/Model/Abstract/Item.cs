@@ -28,6 +28,6 @@
         /// <summary>
         /// Gets or sets the image URL of the item.
         /// </summary>
-        public string? Image { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

@@ -10,14 +10,9 @@ namespace FoodService.Core.Command
     /// <summary>
     /// Command implementation for authentication-related operations.
     /// </summary>
-    public class AuthCommand : IAuthCommand
+    public class AuthCommand(IAuthService authService) : IAuthCommand
     {
-        private readonly IAuthService _authService;
-
-        public AuthCommand(IAuthService authService)
-        {
-            _authService = authService;
-        }
+        private readonly IAuthService _authService = authService;
 
         /// <summary>
         /// Registers a new user.

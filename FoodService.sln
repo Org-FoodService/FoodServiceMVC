@@ -5,9 +5,9 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodService", "FoodService\FoodService.csproj", "{F3337FFF-3605-4B61-B441-642D9CB3040D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodService.Core", "FoodService.Core\FoodService.Core.csproj", "{CEC30C64-F09B-4A74-B1AA-CC432A042B15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodService.Core", "FoodService.Core\FoodService.Core.csproj", "{CEC30C64-F09B-4A74-B1AA-CC432A042B15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodService.Data", "FoodService.Data\FoodService.Data.csproj", "{2D8F3102-2EE1-4CFD-AC09-F530E8EB4810}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodService.Data", "FoodService.Data\FoodService.Data.csproj", "{2D8F3102-2EE1-4CFD-AC09-F530E8EB4810}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

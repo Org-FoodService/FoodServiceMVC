@@ -9,14 +9,12 @@ namespace FoodService.Data.Context
     /// <summary>
     /// Database context for the application, derived from IdentityDbContext.
     /// </summary>
-    public class AppDbContext : IdentityDbContext<UserBase, ApplicationRole, int>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="AppDbContext"/> class.
+    /// </remarks>
+    /// <param name="options">The options for this context.</param>
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<UserBase, ApplicationRole, int>(options)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AppDbContext"/> class.
-        /// </summary>
-        /// <param name="options">The options for this context.</param>
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        { }
 
         /// <summary>
         /// Represents the users in the database.
@@ -36,7 +34,7 @@ namespace FoodService.Data.Context
         /// <summary>
         /// Represents the ingredients in the database.
         /// </summary>
-        public DbSet<Ingrediente> Ingrediente { get; set; }
+        public DbSet<Ingredient> Ingredient { get; set; }
 
         /// <summary>
         /// Represents the order items in the database.

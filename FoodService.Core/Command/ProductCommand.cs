@@ -7,14 +7,9 @@ namespace FoodService.Core.Command
     /// <summary>
     /// Command implementation for product-related operations.
     /// </summary>
-    public class ProductCommand : IProductCommand
+    public class ProductCommand(IProductService productService) : IProductCommand
     {
-        private readonly IProductService _productService;
-
-        public ProductCommand(IProductService productService)
-        {
-            _productService = productService;
-        }
+        private readonly IProductService _productService = productService;
 
         /// <summary>
         /// Retrieves all products.

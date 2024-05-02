@@ -1,5 +1,5 @@
-﻿using FoodService.Data.Model.Auth.User;
-using FoodService.Interface.Repository.Generic;
+﻿using FoodService.Core.Interface.Repository.Generic;
+using FoodService.Data.Model.Auth.User;
 
 namespace FoodService.Core.Interface.Repository
 {

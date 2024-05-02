@@ -9,5 +9,10 @@
         /// Gets or sets the CPF or CNPJ of the user.
         /// </summary>
         public required string CpfCnpj { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of Orders .
+        /// </summary>
+        public List<Order>? Orders { get; set;}
     }
 }

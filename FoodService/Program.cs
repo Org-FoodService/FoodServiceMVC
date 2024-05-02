@@ -12,8 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Add connection to Database
+// Get the database connection string from appsettings.json
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection")!;
+
+// Replace environment variables in the connection string
+mySqlConnection = mySqlConnection
+    .Replace("$userid$", builder.Configuration["userid"])
+    .Replace("$pwd$", builder.Configuration["pwd"])
+    .Replace("$port$", builder.Configuration["port"])
+    .Replace("$database$", builder.Configuration["database"]);
+
+// Add connection to Database
 builder.Services.ConfigureDatabase(mySqlConnection);
 builder.Services.UpdateMigrationDatabase();
 

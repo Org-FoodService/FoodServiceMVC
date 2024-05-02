@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
-using FoodService.Interface.Repository.Generic;
 using FoodService.Data.Context;
 using System.Linq;
+using FoodService.Core.Interface.Repository.Generic;
 
 namespace FoodService.Core.Repository.Generic
 {

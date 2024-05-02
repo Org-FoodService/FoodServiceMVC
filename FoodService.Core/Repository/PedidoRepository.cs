@@ -1,7 +1,7 @@
 ﻿using FoodService.Data.Context;
 using FoodService.Data.Model;
 using FoodService.Core.Repository.Generic;
-using FoodService.Interface.Repository;
+using FoodService.Core.Interface.Repository;
 
 namespace FoodService.Core.Repository
 {
