@@ -13,12 +13,12 @@ namespace FoodService.Core.Interface.Service
         /// <summary>
         /// Retrieves a list of users.
         /// </summary>
-        Task<List<ApplicationUser>> ListUsers();
+        Task<List<ClientUser>> ListUsers();
 
         /// <summary>
         /// Retrieves a user by their ID.
         /// </summary>
-        Task<ApplicationUser> GetUserById(int userId);
+        Task<ClientUser> GetUserById(int userId);
 
         /// <summary>
         /// Retrieves user data transfer object by user ID.
@@ -28,7 +28,7 @@ namespace FoodService.Core.Interface.Service
         /// <summary>
         /// Updates a user.
         /// </summary>
-        Task<int> UpdateUser(ApplicationUser user);
+        Task<int> UpdateUser(ClientUser user);
 
         /// <summary>
         /// Deletes a user by their ID.

@@ -20,7 +20,7 @@ namespace FoodService.Data.Model
         /// <summary>
         /// Gets or sets the user who placed the order.
         /// </summary>
-        public required ApplicationUser User { get; set; }
+        public required ClientUser User { get; set; }
     }
 
     /// <summary>

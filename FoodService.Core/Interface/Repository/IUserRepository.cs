@@ -6,7 +6,7 @@ namespace FoodService.Core.Interface.Repository
     /// <summary>
     /// Interface for the repository of users.
     /// </summary>
-    public interface IUserRepository : IGenericRepository<ApplicationUser, int>
+    public interface IUserRepository : IGenericRepository<ClientUser, int>
     {
     }
 }

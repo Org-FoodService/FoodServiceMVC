@@ -17,9 +17,14 @@ namespace FoodService.Data.Context
     {
 
         /// <summary>
-        /// Represents the users in the database.
+        /// Represents the client users in the database.
         /// </summary>
-        public DbSet<ApplicationUser> User { get; set; }
+        public DbSet<ClientUser> ClientUser { get; set; }
+        
+        /// <summary>
+        /// Represents the employee users in the database.
+        /// </summary>
+        public DbSet<EmployeeUser> EmployeeUser { get; set; }
 
         /// <summary>
         /// Represents the roles in the database.

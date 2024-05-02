@@ -16,7 +16,7 @@ namespace FoodService.Core.Dto
         /// Initializes a new instance of the <see cref="UserDto"/> class with specified user data.
         /// </summary>
         /// <param name="user">The user data.</param>
-        public UserDto(ApplicationUser user)
+        public UserDto(ClientUser user)
         {
             UserName = user.UserName!;
             Email = user.Email!;

@@ -34,18 +34,18 @@ namespace FoodService.Core.Service
         /// <summary>
         /// Retrieves a list of all users.
         /// </summary>
-        public async Task<List<ApplicationUser>> ListUsers()
+        public async Task<List<ClientUser>> ListUsers()
         {
-            List<ApplicationUser> listUsers = await _userRepository.ListAll().ToListAsync();
+            List<ClientUser> listUsers = await _userRepository.ListAll().ToListAsync();
             return listUsers;
         }
 
         /// <summary>
         /// Retrieves a user by their ID.
         /// </summary>
-        public async Task<ApplicationUser> GetUserById(int userId)
+        public async Task<ClientUser> GetUserById(int userId)
         {
-            ApplicationUser user = await _userRepository.GetByIdAsync(userId);
+            ClientUser user = await _userRepository.GetByIdAsync(userId);
             return user ?? throw new ArgumentException("User does not exist.");
         }
 
@@ -62,9 +62,9 @@ namespace FoodService.Core.Service
         /// <summary>
         /// Updates a user.
         /// </summary>
-        public async Task<int> UpdateUser(ApplicationUser user)
+        public async Task<int> UpdateUser(ClientUser user)
         {
-            ApplicationUser findUser = await _userRepository.GetByIdAsync(user.Id) ?? throw new ArgumentException("User not found.");
+            ClientUser findUser = await _userRepository.GetByIdAsync(user.Id) ?? throw new ArgumentException("User not found.");
             findUser.Email = user.Email;
             findUser.UserName = user.UserName;
             return await _userRepository.UpdateAsync(findUser);
@@ -75,7 +75,7 @@ namespace FoodService.Core.Service
         /// </summary>
         public async Task<bool> DeleteUser(int userId)
         {
-            ApplicationUser findUser = await _userRepository.GetByIdAsync(userId) ?? throw new ArgumentException("User not found.");
+            ClientUser findUser = await _userRepository.GetByIdAsync(userId) ?? throw new ArgumentException("User not found.");
             await _userRepository.DeleteAsync(findUser);
             return true;
         }
@@ -85,15 +85,15 @@ namespace FoodService.Core.Service
         /// </summary>
         public async Task<bool> SignUp(SignUpDto signUpDto)
         {
-            ApplicationUser? userExists = await _userManager.FindByNameAsync(signUpDto.Username) as ApplicationUser;
+            ClientUser? userExists = await _userManager.FindByNameAsync(signUpDto.Username) as ClientUser;
             if (userExists != null)
                 throw new ArgumentException("Username already exists");
 
-            userExists = await _userManager.FindByEmailAsync(signUpDto.Email) as ApplicationUser;
+            userExists = await _userManager.FindByEmailAsync(signUpDto.Email) as ClientUser;
             if (userExists != null)
                 throw new ArgumentException("Email already exists");
 
-            ApplicationUser user = new()
+            ClientUser user = new()
             {
                 CpfCnpj = signUpDto.CpfCnpj,
                 Email = signUpDto.Email,
@@ -134,7 +134,7 @@ namespace FoodService.Core.Service
 
         private async Task AddUserToRoleAsync(int userId, string roleName)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(userId!.ToString()) as ApplicationUser ?? throw new ArgumentException("User not found.");
+            ClientUser user = await _userManager.FindByIdAsync(userId!.ToString()) as ClientUser ?? throw new ArgumentException("User not found.");
             await _userManager.AddToRoleAsync(user, roleName);
         }
 

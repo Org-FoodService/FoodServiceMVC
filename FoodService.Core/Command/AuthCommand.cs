@@ -112,21 +112,21 @@ namespace FoodService.Core.Command
         /// </summary>
         /// <returns>A response containing a list of users.</returns>
         [Authorize(Roles = "Admin")]
-        public async Task<ResponseCommon<List<ApplicationUser>>> ListUsers()
+        public async Task<ResponseCommon<List<ClientUser>>> ListUsers()
         {
             try
             {
-                List<ApplicationUser> list = await _authService.ListUsers();
+                List<ClientUser> list = await _authService.ListUsers();
 
-                return ResponseCommon<List<ApplicationUser>>.Success(list);
+                return ResponseCommon<List<ClientUser>>.Success(list);
             }
             catch (ArgumentException ex)
             {
-                return ResponseCommon<List<ApplicationUser>>.Failure(ex.Message, 400);
+                return ResponseCommon<List<ClientUser>>.Failure(ex.Message, 400);
             }
             catch (Exception ex)
             {
-                return ResponseCommon<List<ApplicationUser>>.Failure(ex.Message);
+                return ResponseCommon<List<ClientUser>>.Failure(ex.Message);
             }
         }
 

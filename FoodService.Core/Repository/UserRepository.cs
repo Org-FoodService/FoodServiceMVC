@@ -12,7 +12,7 @@ namespace FoodService.Core.Repository
     /// <summary>
     /// Repository implementation for user entities.
     /// </summary>
-    public class UserRepository : GenericRepository<ApplicationUser, int>, IUserRepository
+    public class UserRepository : GenericRepository<ClientUser, int>, IUserRepository
     {
         /// <summary>
         /// Initializes a new instance of the UserRepository class.
