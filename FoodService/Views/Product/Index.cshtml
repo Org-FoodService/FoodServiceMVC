@@ -1,0 +1,27 @@
+﻿@model List<FoodService.ViewModel.ProductViewModel>
+
+<h2>Lista de Products</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <td>Tipo</td>
+            <td>Preco</td>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Product in Model)
+        {
+            <tr>
+                <td>@Product.Name</td>
+                <td>@Product.Description</td>
+                <td>@Product.Type</td>
+                <td>@Product.Price</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
