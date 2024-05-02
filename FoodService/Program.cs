@@ -1,11 +1,5 @@
 using FoodService.Config.Ioc;
 using FoodService.Config;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,13 +8,6 @@ builder.Services.AddRazorPages();
 
 // Get the database connection string from appsettings.json
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection")!;
-
-// Replace environment variables in the connection string
-mySqlConnection = mySqlConnection
-    .Replace("$userid$", builder.Configuration["userid"])
-    .Replace("$pwd$", builder.Configuration["pwd"])
-    .Replace("$port$", builder.Configuration["port"])
-    .Replace("$database$", builder.Configuration["database"]);
 
 // Add connection to Database
 builder.Services.ConfigureDatabase(mySqlConnection);
