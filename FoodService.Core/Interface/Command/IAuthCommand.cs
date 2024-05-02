@@ -9,7 +9,7 @@ namespace FoodService.Core.Interface.Command
         Task<ResponseCommon<bool>> AddUserToAdminRole(int userId);
         Task<ResponseCommon<UserBase>> GetCurrentUser();
         Task<ResponseCommon<UserDto>> GetUserDto(int id);
-        Task<ResponseCommon<List<ApplicationUser>>> ListUsers();
+        Task<ResponseCommon<List<ClientUser>>> ListUsers();
         Task<ResponseCommon<SsoDto>> SignIn(SignInDto signInDTO);
         Task<ResponseCommon<bool>> SignUp(SignUpDto signUpDto);
     }

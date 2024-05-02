@@ -8,55 +8,44 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodService.Core.Service
 {
     /// <summary>
     /// Service implementation for authentication-related operations.
     /// </summary>
-    public class AuthService : IAuthService
+    /// <remarks>
+    /// Initializes a new instance of the AuthService class.
+    /// </remarks>
+    public class AuthService(
+        IUserRepository userRepository,
+        IConfiguration configuration,
+        UserManager<UserBase> userManager,
+        IHttpContextAccessor httpContextAccessor) : IAuthService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UserManager<UserBase> _userManager;
-
-        /// <summary>
-        /// Initializes a new instance of the AuthService class.
-        /// </summary>
-        public AuthService(
-            IUserRepository userRepository,
-            IConfiguration configuration,
-            UserManager<UserBase> userManager,
-            IHttpContextAccessor httpContextAccessor)
-        {
-            _userRepository = userRepository;
-            _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
-            _userManager = userManager;
-        }
+        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IConfiguration _configuration = configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+        private readonly UserManager<UserBase> _userManager = userManager;
 
         /// <summary>
         /// Retrieves a list of all users.
         /// </summary>
-        public async Task<List<ApplicationUser>> ListUsers()
+        public async Task<List<ClientUser>> ListUsers()
         {
-            List<ApplicationUser> listUsers = await _userRepository.ListAll().ToListAsync();
+            List<ClientUser> listUsers = await _userRepository.ListAll().ToListAsync();
             return listUsers;
         }
 
         /// <summary>
         /// Retrieves a user by their ID.
         /// </summary>
-        public async Task<ApplicationUser> GetUserById(int userId)
+        public async Task<ClientUser> GetUserById(int userId)
         {
-            ApplicationUser user = await _userRepository.GetByIdAsync(userId);
+            ClientUser user = await _userRepository.GetByIdAsync(userId);
             return user ?? throw new ArgumentException("User does not exist.");
         }
 
@@ -73,9 +62,9 @@ namespace FoodService.Core.Service
         /// <summary>
         /// Updates a user.
         /// </summary>
-        public async Task<int> UpdateUser(ApplicationUser user)
+        public async Task<int> UpdateUser(ClientUser user)
         {
-            ApplicationUser findUser = await _userRepository.GetByIdAsync(user.Id) ?? throw new ArgumentException("User not found.");
+            ClientUser findUser = await _userRepository.GetByIdAsync(user.Id) ?? throw new ArgumentException("User not found.");
             findUser.Email = user.Email;
             findUser.UserName = user.UserName;
             return await _userRepository.UpdateAsync(findUser);
@@ -86,7 +75,7 @@ namespace FoodService.Core.Service
         /// </summary>
         public async Task<bool> DeleteUser(int userId)
         {
-            ApplicationUser findUser = await _userRepository.GetByIdAsync(userId) ?? throw new ArgumentException("User not found.");
+            ClientUser findUser = await _userRepository.GetByIdAsync(userId) ?? throw new ArgumentException("User not found.");
             await _userRepository.DeleteAsync(findUser);
             return true;
         }
@@ -96,15 +85,15 @@ namespace FoodService.Core.Service
         /// </summary>
         public async Task<bool> SignUp(SignUpDto signUpDto)
         {
-            ApplicationUser? userExists = await _userManager.FindByNameAsync(signUpDto.Username) as ApplicationUser;
+            ClientUser? userExists = await _userManager.FindByNameAsync(signUpDto.Username) as ClientUser;
             if (userExists != null)
                 throw new ArgumentException("Username already exists");
 
-            userExists = await _userManager.FindByEmailAsync(signUpDto.Email) as ApplicationUser;
+            userExists = await _userManager.FindByEmailAsync(signUpDto.Email) as ClientUser;
             if (userExists != null)
                 throw new ArgumentException("Email already exists");
 
-            ApplicationUser user = new()
+            ClientUser user = new()
             {
                 CpfCnpj = signUpDto.CpfCnpj,
                 Email = signUpDto.Email,
@@ -145,9 +134,7 @@ namespace FoodService.Core.Service
 
         private async Task AddUserToRoleAsync(int userId, string roleName)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(userId!.ToString()) as ApplicationUser;
-            if (user == null)
-                throw new ArgumentException("User not found.");
+            ClientUser user = await _userManager.FindByIdAsync(userId!.ToString()) as ClientUser ?? throw new ArgumentException("User not found.");
             await _userManager.AddToRoleAsync(user, roleName);
         }
 
@@ -156,10 +143,8 @@ namespace FoodService.Core.Service
         /// </summary>
         public async Task<SsoDto> SignIn(SignInDto signInDto)
         {
-            var user = await _userManager.FindByNameAsync(signInDto.Username);
-            if (user == null)
-                throw new ArgumentException("User not found.");
-
+            var user = await _userManager.FindByNameAsync(signInDto.Username) ?? throw new ArgumentException("User not found.");
+            
             if (!await _userManager.CheckPasswordAsync(user, signInDto.Password))
                 throw new ArgumentException("Invalid password.");
 
@@ -167,10 +152,10 @@ namespace FoodService.Core.Service
 
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName!),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email!),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new(ClaimTypes.Name, user.UserName!),
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new(ClaimTypes.Email, user.Email!),
+                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 
             foreach (var userRole in userRoles)

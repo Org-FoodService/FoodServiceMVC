@@ -3,11 +3,12 @@
     /// <summary>
     /// Represents an application user.
     /// </summary>
-    public class ApplicationUser : UserBase
+    public class ClientUser : UserBase
     {
+
         /// <summary>
-        /// Gets or sets the CPF or CNPJ of the user.
+        /// Gets or sets the list of Orders .
         /// </summary>
-        public required string CpfCnpj { get; set; }
+        public List<Order>? Orders { get; set;}
     }
 }

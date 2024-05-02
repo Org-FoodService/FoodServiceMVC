@@ -1,4 +1,4 @@
-﻿namespace FoodService.Core.ViewModel
+﻿namespace FoodService.Core.Identity
 {
     /// <summary>
     /// Defines custom claim types used in the application.

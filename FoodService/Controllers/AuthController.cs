@@ -4,14 +4,9 @@ using FoodService.Core.Interface.Command;
 
 namespace FoodService.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController(IAuthCommand authCommand) : Controller
     {
-        private readonly IAuthCommand _authCommand;
-
-        public AuthController(IAuthCommand authCommand)
-        {
-            _authCommand = authCommand;
-        }
+        private readonly IAuthCommand _authCommand = authCommand;
 
         /// <summary>
         /// Displays the sign-up page.
@@ -84,7 +79,6 @@ namespace FoodService.Controllers
                 ModelState.AddModelError("", response.Message);
                 return View(signInDTO);
             }
-
             // Here you can add logic to redirect to the desired page after successful login
             return RedirectToAction("Index", "Home");
         }

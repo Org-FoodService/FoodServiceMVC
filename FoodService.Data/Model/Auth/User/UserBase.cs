@@ -8,9 +8,9 @@ namespace FoodService.Data.Model.Auth.User
     public class UserBase : IdentityUser<int>
     {
         /// <summary>
-        /// Gets or sets the name of the user.
+        /// Gets or sets the CPF or CNPJ of the user.
         /// </summary>
-        public string? Nome { get; set; }
+        public required string CpfCnpj { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator of the user.

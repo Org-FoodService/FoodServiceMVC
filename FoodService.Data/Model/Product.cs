@@ -1,5 +1,6 @@
 ﻿using FoodService.Data.Model.Abstract;
 using FoodService.Data.Model.Enum;
+using System.Collections.Generic;
 
 namespace FoodService.Data.Model
 {
@@ -27,5 +28,10 @@ namespace FoodService.Data.Model
         /// Gets or sets the price of the product.
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of ingredients used in the product.
+        /// </summary>
+        public List<Ingredient>? Ingredients { get; set; }
     }
 }

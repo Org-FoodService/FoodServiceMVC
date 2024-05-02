@@ -1,19 +1,15 @@
 using FoodService.Config.Ioc;
 using FoodService.Config;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Add connection to Database
+// Get the database connection string from appsettings.json
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection")!;
+
+// Add connection to Database
 builder.Services.ConfigureDatabase(mySqlConnection);
 builder.Services.UpdateMigrationDatabase();
 
