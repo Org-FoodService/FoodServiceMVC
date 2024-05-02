@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Get the database connection string from appsettings.json
-string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection")!;
+string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add connection to Database
 builder.Services.ConfigureDatabase(mySqlConnection);
-builder.Services.UpdateMigrationDatabase();
+//builder.Services.UpdateMigrationDatabase();
 
 builder.Services.ConfigureAuthentication(builder);
 
