@@ -18,11 +18,7 @@ builder.Services.ConfigureRepositoryIoc();
 builder.Services.ConfigureServiceIoc();
 builder.Services.ConfigureCommandIoc();
 
-builder.Services.AddControllersWithViews(options =>
-{
-    // Add the global custom exception filter
-    //options.Filters.Add(new CustomExceptionFilterAttribute());
-});
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -34,6 +30,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+Console.WriteLine("Passou aqui");
 //app.UseHttpsRedirection(); // Redirects all HTTP requests to HTTPS
 app.UseStaticFiles();
 
@@ -54,5 +51,6 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+Console.WriteLine("Passou aqui2");
 
 app.Run();
