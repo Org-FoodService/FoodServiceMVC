@@ -1,18 +1,24 @@
 # DotNetMVCFoodService
- The DotNetMVCFoodService repository is an ASP.NET MVC app for snack bars, managing menus, inventory, and employees. It offers centralized menu creation, inventory management, and potential delivery integration. Built with .NET, it's a collaborative hub for enhancing snack bar operations.
 
-## Setting Environment Variables for Database Migrations in Entity Framework Core
+The DotNetMVCFoodService repository is an ASP.NET MVC app designed for snack bars, facilitating the management of menus, inventory, and employee information. Leveraging the capabilities of .NET 8.0, this application serves as a centralized platform to streamline snack bar operations.
 
-When executing the `Add-Migration` or `Update-Database` commands in the Package Manager Console in Visual Studio, you may need to manually set environment variables to ensure that the commands use the correct values from the environment configurations.
+## Overview
 
-### Steps to Set Environment Variables in the Package Manager Console:
+This project aims to enhance snack bar operations by providing functionalities for menu creation, inventory management, and potential delivery integration. The use of ASP.NET MVC architecture ensures a structured approach to application development, promoting modularity and maintainability.
 
-1. Open Visual Studio and navigate to the Package Manager Console (`Tools` > `NuGet Package Manager` > `Package Manager Console`).
+## Demo Application
 
-2. Before executing the `Add-Migration` or `Update-Database` commands, manually set the environment variables using the `set` command. For example:
+Explore our [demo application](https://foodservice.azurewebsites.net/) to experience the features of DotNetMVCFoodService firsthand.
 
-   ```plaintext
-   set userid=your_username
-   set pwd=your_password
-   set port=your_database_port
-   set database=your_database_name
+## Documentation
+
+For more detailed information, please refer to our [wiki](https://github.com/Org-FoodService/DotNetMVCFoodService/wiki).
+
+## Dependencies
+
+| Dependency | Version |
+|------------|---------|
+| MySQL      | 8.0     |
+| .NET       | 8.0     |
+
+Feel free to contribute to the project and help us improve snack bar operations with DotNetMVCFoodService!

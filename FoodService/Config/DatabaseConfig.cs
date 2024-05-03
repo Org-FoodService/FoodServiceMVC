@@ -3,8 +3,6 @@ using FoodService.Data.Model.Auth.Role;
 using FoodService.Data.Model.Auth.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
 
 namespace FoodService.Config
 {
