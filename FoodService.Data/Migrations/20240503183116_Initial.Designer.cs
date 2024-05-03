@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodService.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240502204034_EmployeeUser")]
-    partial class EmployeeUser
+    [Migration("20240503183116_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -158,17 +158,68 @@ namespace FoodService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Ingredient");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Fresh tomato",
+                            ExpirationDate = new DateTime(2024, 5, 10, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2081),
+                            IsFresh = true,
+                            Name = "Tomato",
+                            StockQuantity = 100
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Crispy lettuce",
+                            ExpirationDate = new DateTime(2024, 5, 8, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2101),
+                            IsFresh = true,
+                            Name = "Lettuce",
+                            StockQuantity = 50
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Boneless chicken breast",
+                            ExpirationDate = new DateTime(2024, 5, 6, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2103),
+                            IsFresh = true,
+                            Name = "Chicken Breast",
+                            StockQuantity = 30
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Cheddar cheese",
+                            ExpirationDate = new DateTime(2024, 5, 13, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2104),
+                            IsFresh = true,
+                            Name = "Cheese",
+                            StockQuantity = 40
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Fresh onion",
+                            ExpirationDate = new DateTime(2024, 5, 10, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2106),
+                            IsFresh = true,
+                            Name = "Onion",
+                            StockQuantity = 60
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Fresh lemon",
+                            ExpirationDate = new DateTime(2024, 5, 13, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2108),
+                            IsFresh = true,
+                            Name = "Lemon",
+                            StockQuantity = 30
+                        });
                 });
 
             modelBuilder.Entity("FoodService.Data.Model.Order", b =>
@@ -245,15 +296,131 @@ namespace FoodService.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
-
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Product");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            Brand = "Chef's Special",
+                            Description = "Delicious tomato soup",
+                            Name = "Tomato Soup",
+                            Price = 5.99m,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            Brand = "Healthy Kitchen",
+                            Description = "Healthy chicken salad",
+                            Name = "Chicken Salad",
+                            Price = 8.49m,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            Brand = "Fresh Drinks",
+                            Description = "Refreshing lemonade",
+                            Name = "Lemonade",
+                            Price = 2.99m,
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Active = true,
+                            Brand = "Burger House",
+                            Description = "Classic cheeseburger",
+                            Name = "Cheeseburger",
+                            Price = 7.99m,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Active = true,
+                            Brand = "Snack Corner",
+                            Description = "Crispy onion rings",
+                            Name = "Onion Rings",
+                            Price = 3.49m,
+                            Type = 3
+                        });
+                });
+
+            modelBuilder.Entity("FoodService.Data.Model.ProductIngredient", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "IngredientId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("ProductIngredient");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            IngredientId = 1
+                        },
+                        new
+                        {
+                            ProductId = 1,
+                            IngredientId = 2
+                        },
+                        new
+                        {
+                            ProductId = 1,
+                            IngredientId = 4
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            IngredientId = 2
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            IngredientId = 3
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            IngredientId = 6
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            IngredientId = 1
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            IngredientId = 2
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            IngredientId = 4
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            IngredientId = 5
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -373,13 +540,6 @@ namespace FoodService.Data.Migrations
                     b.HasDiscriminator().HasValue("EmployeeUser");
                 });
 
-            modelBuilder.Entity("FoodService.Data.Model.Ingredient", b =>
-                {
-                    b.HasOne("FoodService.Data.Model.Product", null)
-                        .WithMany("Ingredients")
-                        .HasForeignKey("ProductId");
-                });
-
             modelBuilder.Entity("FoodService.Data.Model.Order", b =>
                 {
                     b.HasOne("FoodService.Data.Model.Auth.User.ClientUser", "User")
@@ -406,6 +566,25 @@ namespace FoodService.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("FoodService.Data.Model.ProductIngredient", b =>
+                {
+                    b.HasOne("FoodService.Data.Model.Ingredient", "Ingredient")
+                        .WithMany("ProductIngredients")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoodService.Data.Model.Product", "Product")
+                        .WithMany("ProductIngredients")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
 
                     b.Navigation("Product");
                 });
@@ -461,6 +640,11 @@ namespace FoodService.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FoodService.Data.Model.Ingredient", b =>
+                {
+                    b.Navigation("ProductIngredients");
+                });
+
             modelBuilder.Entity("FoodService.Data.Model.Order", b =>
                 {
                     b.Navigation("OrderItems");
@@ -468,7 +652,7 @@ namespace FoodService.Data.Migrations
 
             modelBuilder.Entity("FoodService.Data.Model.Product", b =>
                 {
-                    b.Navigation("Ingredients");
+                    b.Navigation("ProductIngredients");
                 });
 
             modelBuilder.Entity("FoodService.Data.Model.Auth.User.ClientUser", b =>

@@ -16,7 +16,7 @@ namespace FoodService.ViewModel
         {
             Description = product.Description?.ToString() ?? "";
             Name = product.Name;
-            Price = product.Price.ToString("R$x.xx");
+            Price = CurrencyUtils.FormatCurrency(product.Price);
             Type = product.Type.GetEnumDescription() ?? "";
         }
 

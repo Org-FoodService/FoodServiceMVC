@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace FoodService.Data.Migrations
 {
     /// <inheritdoc />
@@ -40,11 +42,9 @@ namespace FoodService.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: true)
+                    CpfCnpj = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Discriminator = table.Column<string>(type: "varchar(21)", maxLength: 21, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CpfCnpj = table.Column<string>(type: "longtext", nullable: true)
+                    Discriminator = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -76,6 +76,27 @@ namespace FoodService.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Ingredient",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IsFresh = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Image = table.Column<byte[]>(type: "longblob", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ingredient", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
@@ -90,7 +111,6 @@ namespace FoodService.Data.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    StockQuantity = table.Column<int>(type: "int", nullable: false),
                     Image = table.Column<byte[]>(type: "longblob", nullable: true)
                 },
                 constraints: table =>
@@ -241,29 +261,27 @@ namespace FoodService.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Ingredient",
+                name: "ProductIngredient",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    IsFresh = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<byte[]>(type: "longblob", nullable: true)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    IngredientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ingredient", x => x.Id);
+                    table.PrimaryKey("PK_ProductIngredient", x => new { x.ProductId, x.IngredientId });
                     table.ForeignKey(
-                        name: "FK_Ingredient_Product_ProductId",
+                        name: "FK_ProductIngredient_Ingredient_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "Ingredient",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductIngredient_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -296,6 +314,48 @@ namespace FoodService.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "Ingredient",
+                columns: new[] { "Id", "Description", "ExpirationDate", "Image", "IsFresh", "Name", "StockQuantity" },
+                values: new object[,]
+                {
+                    { 1, "Fresh tomato", new DateTime(2024, 5, 10, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2081), null, true, "Tomato", 100 },
+                    { 2, "Crispy lettuce", new DateTime(2024, 5, 8, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2101), null, true, "Lettuce", 50 },
+                    { 3, "Boneless chicken breast", new DateTime(2024, 5, 6, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2103), null, true, "Chicken Breast", 30 },
+                    { 4, "Cheddar cheese", new DateTime(2024, 5, 13, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2104), null, true, "Cheese", 40 },
+                    { 5, "Fresh onion", new DateTime(2024, 5, 10, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2106), null, true, "Onion", 60 },
+                    { 6, "Fresh lemon", new DateTime(2024, 5, 13, 15, 31, 15, 477, DateTimeKind.Local).AddTicks(2108), null, true, "Lemon", 30 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "Id", "Active", "Brand", "Description", "Image", "Name", "Price", "Type" },
+                values: new object[,]
+                {
+                    { 1, true, "Chef's Special", "Delicious tomato soup", null, "Tomato Soup", 5.99m, 3 },
+                    { 2, true, "Healthy Kitchen", "Healthy chicken salad", null, "Chicken Salad", 8.49m, 3 },
+                    { 3, true, "Fresh Drinks", "Refreshing lemonade", null, "Lemonade", 2.99m, 2 },
+                    { 4, true, "Burger House", "Classic cheeseburger", null, "Cheeseburger", 7.99m, 3 },
+                    { 5, true, "Snack Corner", "Crispy onion rings", null, "Onion Rings", 3.49m, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductIngredient",
+                columns: new[] { "IngredientId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 4, 1 },
+                    { 2, 2 },
+                    { 3, 2 },
+                    { 6, 3 },
+                    { 1, 4 },
+                    { 2, 4 },
+                    { 4, 4 },
+                    { 5, 5 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -335,11 +395,6 @@ namespace FoodService.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ingredient_ProductId",
-                table: "Ingredient",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Order_UserId",
                 table: "Order",
                 column: "UserId");
@@ -353,6 +408,11 @@ namespace FoodService.Data.Migrations
                 name: "IX_OrderItem_ProductId",
                 table: "OrderItem",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductIngredient_IngredientId",
+                table: "ProductIngredient",
+                column: "IngredientId");
         }
 
         /// <inheritdoc />
@@ -374,16 +434,19 @@ namespace FoodService.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Ingredient");
+                name: "OrderItem");
 
             migrationBuilder.DropTable(
-                name: "OrderItem");
+                name: "ProductIngredient");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Ingredient");
 
             migrationBuilder.DropTable(
                 name: "Product");

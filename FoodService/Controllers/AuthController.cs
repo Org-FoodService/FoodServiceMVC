@@ -1,12 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FoodService.Core.Dto;
 using FoodService.Core.Interface.Command;
+using FoodService.Config.Globalization;
 
 namespace FoodService.Controllers
 {
-    public class AuthController(IAuthCommand authCommand) : Controller
+    /// <summary>
+    /// Controller for handling user authentication related actions such as sign-up and sign-in.
+    /// </summary>
+    public class AuthController : BaseController
     {
-        private readonly IAuthCommand _authCommand = authCommand;
+        private readonly IAuthCommand _authCommand;
+
+        /// <summary>
+        /// Constructor for AuthController.
+        /// </summary>
+        /// <param name="authCommand">The authentication command.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="localization">The localization service.</param>
+        public AuthController(
+            IAuthCommand authCommand,
+            ILogger<AuthController> logger,
+            LanguageService localization
+        ) : base(logger, localization)
+        {
+            _authCommand = authCommand;
+        }
 
         /// <summary>
         /// Displays the sign-up page.
@@ -15,6 +34,7 @@ namespace FoodService.Controllers
         [HttpGet]
         public IActionResult SignUp()
         {
+            _logger.LogInformation("Displaying the sign-up page.");
             return View();
         }
 
@@ -26,9 +46,12 @@ namespace FoodService.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpDto signUpDto)
         {
+            _logger.LogInformation("Attempting sign-up.");
+
             // If model state is not valid, return to the view
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Invalid model state during sign-up.");
                 return View(signUpDto);
             }
 
@@ -38,10 +61,12 @@ namespace FoodService.Controllers
             // If the SignUp operation was not successful, add error message to model state and return to the view
             if (!response.IsSuccess)
             {
+                _logger.LogError("Sign-up failed: {ErrorMessage}", response.Message);
                 ModelState.AddModelError("", response.Message);
                 return View(signUpDto);
             }
 
+            _logger.LogInformation("Sign-up successful. Redirecting to sign-in page.");
             // Redirect to SignIn action if SignUp is successful
             return RedirectToAction("SignIn");
         }
@@ -53,6 +78,7 @@ namespace FoodService.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
+            _logger.LogInformation("Displaying the sign-in page.");
             return View();
         }
 
@@ -64,9 +90,12 @@ namespace FoodService.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInDto signInDTO)
         {
+            _logger.LogInformation("Attempting sign-in.");
+
             // If model state is not valid, return to the view
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Invalid model state during sign-in.");
                 return View(signInDTO);
             }
 
@@ -76,9 +105,12 @@ namespace FoodService.Controllers
             // If the SignIn operation was not successful, add error message to model state and return to the view
             if (!response.IsSuccess)
             {
+                _logger.LogError("Sign-in failed: {ErrorMessage}", response.Message);
                 ModelState.AddModelError("", response.Message);
                 return View(signInDTO);
             }
+
+            _logger.LogInformation("Sign-in successful. Redirecting to home page.");
             // Here you can add logic to redirect to the desired page after successful login
             return RedirectToAction("Index", "Home");
         }
