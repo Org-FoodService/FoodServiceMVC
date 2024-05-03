@@ -30,11 +30,11 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error"); // Middleware for error handling
-    app.UseStatusCodePagesWithRedirects("/Home/Index"); // Middleware for redirecting not found pages
+    //app.UseStatusCodePagesWithRedirects("/Home/Index"); // Middleware for redirecting not found pages
     app.UseHsts();
 }
 
-app.UseHttpsRedirection(); // Redirects all HTTP requests to HTTPS
+//app.UseHttpsRedirection(); // Redirects all HTTP requests to HTTPS
 app.UseStaticFiles();
 
 app.UseRouting();
