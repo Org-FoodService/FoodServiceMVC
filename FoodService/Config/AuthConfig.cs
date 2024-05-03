@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace FoodService.Config
@@ -18,6 +19,7 @@ namespace FoodService.Config
         /// <param name="builder">The web application builder.</param>
         public static void ConfigureAuthentication(this IServiceCollection services, WebApplicationBuilder builder)
         {
+            Console.WriteLine(builder.Configuration["JWT:ValidIssuer"]);
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

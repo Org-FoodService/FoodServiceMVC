@@ -3,11 +3,9 @@ using FoodService.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-
 // Get the database connection string from appsettings.json
 string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine(mySqlConnection);
 
 // Add connection to Database
 builder.Services.ConfigureDatabase(mySqlConnection);
