@@ -4,7 +4,7 @@ name: Build and deploy .NET Core application to Web App FoodService
 on:
   push:
     branches:
-    - azure
+    - main
 env:
   AZURE_WEBAPP_NAME: FoodService
   AZURE_WEBAPP_PACKAGE_PATH: FoodService/published
