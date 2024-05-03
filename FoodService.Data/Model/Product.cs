@@ -10,6 +10,11 @@ namespace FoodService.Data.Model
     public class Product : Item
     {
         /// <summary>
+        /// Gets or sets the ID of the Product.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the product is active.
         /// </summary>
         public bool Active { get; set; }
@@ -30,8 +35,8 @@ namespace FoodService.Data.Model
         public decimal Price { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of ingredients used in the product.
+        /// Gets or sets the list of product ingredients associated with this product.
         /// </summary>
-        public List<Ingredient>? Ingredients { get; set; }
+        public List<ProductIngredient>? ProductIngredients { get; set; }
     }
 }

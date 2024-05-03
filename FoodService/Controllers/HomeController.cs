@@ -1,14 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FoodService.ViewModel;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Localization;
+using FoodService.Config.Globalization;
 
 namespace FoodService.Controllers
 {
     /// <summary>
     /// Controller for handling home-related actions.
     /// </summary>
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        /// <summary>
+        /// Constructor for HomeController.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="localization">The localization service.</param>
+        public HomeController(ILogger<HomeController> logger, LanguageService localization)
+            : base(logger, localization)
+        {
+        }
+
+        /// <summary>
+        /// Changes the application's current culture.
+        /// </summary>
+        /// <param name="culture">The culture to change to.</param>
+        /// <returns>Redirects to the previous page.</returns>
+        public IActionResult ChangeLanguage(string culture)
+        {
+            // Sets the culture cookie for language preference
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), new CookieOptions()
+            {
+                Expires = DateTimeOffset.UtcNow.AddYears(1)
+            });
+
+            // Logs the culture change
+            _logger.LogInformation("Language changed to: {Culture}", culture);
+
+            // Redirects to the previous page
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+
         /// <summary>
         /// Displays the home page.
         /// </summary>
@@ -27,7 +60,10 @@ namespace FoodService.Controllers
             // Gets the error request ID from the HttpContext
             var requestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
 
-            // Sets up the model for your error view
+            // Logs the error request ID
+            _logger.LogError("Error occurred. Request ID: {RequestId}", requestId);
+
+            // Sets up the model for the error view
             var errorViewModel = new ErrorViewModel
             {
                 RequestId = requestId
