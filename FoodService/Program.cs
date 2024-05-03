@@ -11,7 +11,7 @@ string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConn
 
 // Add connection to Database
 builder.Services.ConfigureDatabase(mySqlConnection);
-//builder.Services.UpdateMigrationDatabase();
+builder.Services.UpdateMigrationDatabase();
 
 builder.Services.ConfigureAuthentication(builder);
 
