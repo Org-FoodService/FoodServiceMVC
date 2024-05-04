@@ -1,7 +1,6 @@
 using FoodService.Config.Ioc;
 using FoodService.Config;
 using FoodService.Config.Globalization;
-using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +28,10 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error"); // Middleware for error handling
-    //app.UseStatusCodePagesWithRedirects("/Home/Index"); // Middleware for redirecting not found pages
+    app.UseStatusCodePagesWithRedirects("/Home/Index"); // Middleware for redirecting not found pages
     app.UseHsts();
 }
 
-Console.WriteLine("Passou aqui");
 //app.UseHttpsRedirection(); // Redirects all HTTP requests to HTTPS
 app.UseStaticFiles();
 
