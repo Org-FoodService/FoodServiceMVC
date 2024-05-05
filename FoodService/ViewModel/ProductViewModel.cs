@@ -1,5 +1,5 @@
 ﻿using FoodService.Core.Util;
-using FoodService.Data.Model;
+using FoodService.Nugget.Models;
 
 namespace FoodService.ViewModel
 {

@@ -1,7 +1,7 @@
-﻿using FoodService.Data.Model;
-using FoodService.Data.Model.Auth.Role;
-using FoodService.Data.Model.Auth.User;
-using FoodService.Data.Model.Enum;
+﻿using FoodService.Nugget.Models;
+using FoodService.Nugget.Models.Auth.Role;
+using FoodService.Nugget.Models.Auth.User;
+using FoodService.Nugget.Models.Enum;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

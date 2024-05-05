@@ -40,8 +40,7 @@ namespace FoodService.Core.Repository.Generic
         /// </summary>
         public virtual async Task<int> UpdateAsync(T entity)
         {
-            EntityEntry<T>? entry = _context.Entry(entity);
-            if (entry == null) throw new KeyNotFoundException("Entity not found");
+            EntityEntry<T>? entry = _context.Entry(entity) ?? throw new KeyNotFoundException("Entity not found");
             entry.State = EntityState.Modified;
             return await _context.SaveChangesAsync();
         }
@@ -60,8 +59,7 @@ namespace FoodService.Core.Repository.Generic
         /// </summary>
         public virtual async Task<bool> DeleteAsync(T entity)
         {
-            EntityEntry<T>? entry = _context.Entry(entity);
-            if (entry == null) throw new KeyNotFoundException("Entity not found");
+            EntityEntry<T>? entry = _context.Entry(entity) ?? throw new KeyNotFoundException("Entity not found");
             entry.State = EntityState.Deleted;
             await _context.SaveChangesAsync();
             return true;

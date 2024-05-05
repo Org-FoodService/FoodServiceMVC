@@ -1,5 +1,5 @@
 ﻿using FoodService.Core.Interface.Repository.Generic;
-using FoodService.Data.Model.Auth.User;
+using FoodService.Nugget.Models.Auth.User;
 
 namespace FoodService.Core.Interface.Repository
 {

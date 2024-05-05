@@ -1,8 +1,7 @@
-﻿using FoodService.Data.Model.Auth.Role;
+﻿using FoodService.Nugget.Models.Auth.Role;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 
 namespace FoodService.Config

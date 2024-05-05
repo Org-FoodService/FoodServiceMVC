@@ -1,7 +1,5 @@
 ﻿using FoodService.Core.Dto;
-using FoodService.Data.Model.Auth.User;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using FoodService.Nugget.Models.Auth.User;
 
 namespace FoodService.Core.Interface.Service
 {

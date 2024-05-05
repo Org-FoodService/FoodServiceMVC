@@ -1,6 +1,6 @@
 ﻿using FoodService.Core.Interface.Command;
 using FoodService.Core.Interface.Service;
-using FoodService.Data.Model;
+using FoodService.Nugget.Models;
 
 namespace FoodService.Core.Command
 {
@@ -78,7 +78,7 @@ namespace FoodService.Core.Command
                 return ResponseCommon<bool>.Failure("Product not found", 404);
             }
 
-            var result = await _productService.DeleteProductAsync(id);
+            _ = await _productService.DeleteProductAsync(id);
 
             return ResponseCommon<bool>.Success(true);
         }

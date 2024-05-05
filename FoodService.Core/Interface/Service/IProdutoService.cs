@@ -1,6 +1,4 @@
-﻿using FoodService.Data.Model;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using FoodService.Nugget.Models;
 
 namespace FoodService.Core.Interface.Service
 {

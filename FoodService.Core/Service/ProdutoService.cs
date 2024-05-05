@@ -1,9 +1,7 @@
 ﻿using FoodService.Core.Interface.Repository;
 using FoodService.Core.Interface.Service;
-using FoodService.Data.Model;
+using FoodService.Nugget.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FoodService.Core.Service
 {

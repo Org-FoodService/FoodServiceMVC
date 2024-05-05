@@ -13,7 +13,7 @@ namespace FoodService.Core.Identity
         private string subject = "";
         private string issuer = "";
         private string audience = "";
-        private readonly Dictionary<string, string> claims = new();
+        private readonly Dictionary<string, string> claims = [];
         private int expiryInMinutes = 5;
 
         /// <summary>
@@ -119,8 +119,8 @@ namespace FoodService.Core.Identity
 
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, subject),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new(JwtRegisteredClaimNames.Sub, subject),
+                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             }.Union(this.claims.Select(item => new Claim(item.Key, item.Value)));
 
             var token = new JwtSecurityToken(

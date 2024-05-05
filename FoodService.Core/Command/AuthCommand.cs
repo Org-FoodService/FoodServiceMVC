@@ -1,8 +1,8 @@
 ﻿using FoodService.Core.Dto;
 using FoodService.Core.Interface.Command;
 using FoodService.Core.Interface.Service;
-using FoodService.Data.Model;
-using FoodService.Data.Model.Auth.User;
+using FoodService.Nugget.Models;
+using FoodService.Nugget.Models.Auth.User;
 using Microsoft.AspNetCore.Authorization;
 
 namespace FoodService.Core.Command

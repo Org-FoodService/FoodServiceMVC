@@ -1,8 +1,8 @@
 ﻿using FoodService.Core.Dto;
 using FoodService.Core.Interface.Repository;
 using FoodService.Core.Interface.Service;
-using FoodService.Data.Model.Auth.Role;
-using FoodService.Data.Model.Auth.User;
+using FoodService.Nugget.Models.Auth.Role;
+using FoodService.Nugget.Models.Auth.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

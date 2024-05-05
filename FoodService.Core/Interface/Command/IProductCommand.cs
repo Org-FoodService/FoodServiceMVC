@@ -1,4 +1,4 @@
-﻿using FoodService.Data.Model;
+﻿using FoodService.Nugget.Models;
 
 namespace FoodService.Core.Interface.Command
 {

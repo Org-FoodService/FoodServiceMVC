@@ -1,11 +1,7 @@
 ﻿using FoodService.Data.Context;
 using FoodService.Core.Repository.Generic;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using FoodService.Core.Interface.Repository;
-using FoodService.Data.Model.Auth.User;
+using FoodService.Nugget.Models.Auth.User;
 
 namespace FoodService.Core.Repository
 {
