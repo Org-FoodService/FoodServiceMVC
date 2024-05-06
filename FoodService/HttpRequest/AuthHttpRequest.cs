@@ -1,6 +1,6 @@
-﻿using FoodService.Dto;
-using FoodService.Nugget.Models.Auth.User;
-using FoodService.Nugget.Models;
+﻿using FoodService.Nuget.Models.Dto;
+using FoodService.Nuget.Models.Auth.User;
+using FoodService.Nuget.Models;
 using System.Text.Json;
 using System.Text;
 using FoodService.HttpRequest.Interface;

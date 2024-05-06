@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using FoodService.Dto;
 using FoodService.Config.Globalization;
 using FoodService.HttpRequest.Interface;
+using FoodService.Nuget.Models.Dto;
 
 namespace FoodService.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using FoodService.Util;
-using FoodService.Nugget.Models;
+using FoodService.Nuget.Models;
 
 namespace FoodService.ViewModel
 {

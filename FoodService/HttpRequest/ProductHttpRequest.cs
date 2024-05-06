@@ -1,5 +1,5 @@
 ﻿using FoodService.HttpRequest.Interface;
-using FoodService.Nugget.Models;
+using FoodService.Nuget.Models;
 
 namespace FoodService.HttpRequest
 {
