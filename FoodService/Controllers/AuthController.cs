@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FoodService.Dto;
 using FoodService.Config.Globalization;
+using FoodService.HttpRequest.Interface;
 
 namespace FoodService.Controllers
 {
@@ -9,21 +10,21 @@ namespace FoodService.Controllers
     /// </summary>
     public class AuthController : BaseController
     {
-        private readonly IAuthCommand _authCommand;
+        private readonly IAuthHttpRequest _authHttpRequest;
 
         /// <summary>
         /// Constructor for AuthController.
         /// </summary>
-        /// <param name="authCommand">The authentication command.</param>
+        /// <param name="authHttpRequest">The authentication command.</param>
         /// <param name="logger">The logger.</param>
         /// <param name="localization">The localization service.</param>
         public AuthController(
-            IAuthCommand authCommand,
+            IAuthHttpRequest authHttpRequest,
             ILogger<AuthController> logger,
             LanguageService localization
         ) : base(logger, localization)
         {
-            _authCommand = authCommand;
+            _authHttpRequest = authHttpRequest;
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace FoodService.Controllers
             }
 
             // Call the SignUp method from the authentication command
-            var response = await _authCommand.SignUp(signUpDto);
+            var response = await _authHttpRequest.SignUp(signUpDto);
 
             // If the SignUp operation was not successful, add error message to model state and return to the view
             if (!response.IsSuccess)
@@ -99,7 +100,7 @@ namespace FoodService.Controllers
             }
 
             // Call the SignIn method from the authentication command
-            var response = await _authCommand.SignIn(signInDTO);
+            var response = await _authHttpRequest.SignIn(signInDTO);
 
             // If the SignIn operation was not successful, add error message to model state and return to the view
             if (!response.IsSuccess)

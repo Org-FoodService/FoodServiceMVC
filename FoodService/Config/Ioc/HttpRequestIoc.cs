@@ -14,7 +14,17 @@ namespace FoodService.Config.Ioc
         /// <param name="services">The service collection.</param>
         public static void ConfigureHttpRequestIoc(this IServiceCollection services)
         {
-            services.AddScoped<IProductHttpRequest, ProductHttpRequest>();
+            services.AddScoped<IProductHttpRequest, ProductHttpRequest>(provider =>
+            {
+
+
+                var logger = provider.GetRequiredService<ILogger<ProductHttpRequest>>();
+                var baseUrl = "https://your-api-base-url.com"; // Update with your actual base URL
+
+                // Instantiate ProductHttpRequest with the base URL and logger
+                return new ProductHttpRequest(baseUrl, logger);
+            });
+            services.AddScoped<IAuthHttpRequest, AuthHttpRequest>();
         }
     }
 }
