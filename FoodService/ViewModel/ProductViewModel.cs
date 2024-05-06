@@ -1,4 +1,4 @@
-﻿using FoodService.Core.Util;
+﻿using FoodService.Util;
 using FoodService.Nugget.Models;
 
 namespace FoodService.ViewModel

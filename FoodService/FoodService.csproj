@@ -24,11 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FoodService.Core\FoodService.Core.csproj" />
-    <ProjectReference Include="..\FoodService.Data\FoodService.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Resources\SharedResource.pt-BR.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>

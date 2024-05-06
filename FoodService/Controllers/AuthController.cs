@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using FoodService.Core.Dto;
-using FoodService.Core.Interface.Command;
+using FoodService.Dto;
 using FoodService.Config.Globalization;
 
 namespace FoodService.Controllers

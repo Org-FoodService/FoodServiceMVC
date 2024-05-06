@@ -1,5 +1,6 @@
 ﻿using FoodService.Config.Globalization;
-using FoodService.Core.Interface.Command;
+using FoodService.HttpRequest.Interface;
+using FoodService.Interface.Command;
 using FoodService.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,20 +11,20 @@ namespace FoodService.Controllers
     /// </summary>
     public class ProductController : BaseController
     {
-        private readonly IProductCommand _ProductCommand;
+        private readonly IProductHttpRequest _productHttpRequest;
 
         /// <summary>
         /// Constructor for ProductController.
         /// </summary>
-        /// <param name="ProductCommand">The product command service.</param>
+        /// <param name="productHttpRequest">The product command service.</param>
         /// <param name="logger">The logger.</param>
         /// <param name="localization">The localization service.</param>
         public ProductController(
-            IProductCommand ProductCommand,
+            IProductHttpRequest productHttpRequest,
             ILogger<ProductController> logger,
             LanguageService localization) : base(logger, localization)
         {
-            _ProductCommand = ProductCommand;
+            _productHttpRequest = productHttpRequest;
         }
 
         /// <summary>
@@ -36,7 +37,7 @@ namespace FoodService.Controllers
             // Logs the attempt to retrieve all products
             _logger.LogInformation("Attempting to retrieve all products.");
 
-            var response = await _ProductCommand.GetAllProducts();
+            var response = await _productHttpRequest.GetAllProducts();
 
             // Checks if the status code is in the 200 range
             if (response.StatusCode < 200 || response.StatusCode >= 300)
