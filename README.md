@@ -16,8 +16,6 @@ For more detailed information, please refer to our [wiki](https://foodservice.gi
 
 ## Dependencies
 
-## Dependencies
-
 | Dependency                                                                                                                    | Version |
 |-------------------------------------------------------------------------------------------------------------------------------|---------|
 | MySQL                                                                                                                         | 8.0     |
@@ -25,4 +23,4 @@ For more detailed information, please refer to our [wiki](https://foodservice.gi
 | [FoodService.Nuget.Models](https://github.com/Org-FoodService/FoodService.Nuget.Models/pkgs/nuget/FoodService.Models)         | 1.0.0   |
 
 
-Feel free to contribute to the project and help us improve snack bar operations with FoodServiceAPI!
+Feel free to contribute to the project and help us improve snack bar operations with FoodService!
