@@ -1,4 +1,4 @@
-﻿namespace FoodService.Config.Globalization
+﻿namespace FoodService.Config
 {
     /// <summary>
     /// Constraint to validate the culture route parameter.

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
-using FoodService.Config.Globalization;
-using Microsoft.Extensions.Logging;
+using FoodService.Config;
 
 namespace FoodService.Controllers
 {

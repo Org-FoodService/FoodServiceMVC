@@ -1,5 +1,8 @@
 ﻿using FoodService.HttpRequest.Interface;
 using FoodService.Nuget.Models;
+using FoodService.Util;
+using System.Text.Json;
+using System.Text;
 
 namespace FoodService.HttpRequest
 {
@@ -21,6 +24,8 @@ namespace FoodService.HttpRequest
         {
             _httpClient = new HttpClient();
             _baseUrl = baseUrl.TrimEnd('/');
+            _httpClient.BaseAddress = new Uri(_baseUrl);
+
             _logger = logger;
         }
 
@@ -30,15 +35,24 @@ namespace FoodService.HttpRequest
         /// <returns>A response containing an array of products.</returns>
         public async Task<ResponseCommon<Product[]>> GetAllProducts()
         {
-            _logger.LogInformation("Fetching all products");
-            var response = await _httpClient.GetFromJsonAsync<ResponseCommon<Product[]>>(_baseUrl + "/api/Product");
-            if (response == null)
+            try
             {
-                _logger.LogError("Failed to fetch products.");
-                throw new Exception("Failed to fetch products.");
-            }
+                _logger.LogInformation("Fetching all products");
+                var response = await _httpClient.GetAsync("/api/Product");
+                if (response == null)
+                {
+                    _logger.LogError("Failed to fetch products.");
+                    throw new Exception("Failed to fetch products.");
+                }
 
-            return response;
+                return await HttpUtils.HandleResponse<Product[]>(response);
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Error occurred while fetching all products.";
+                _logger.LogError(ex, errorMessage);
+                return await Task.FromResult(HttpUtils.FailedRequest<Product[]>(errorMessage, 500));
+            }
         }
 
         /// <summary>
@@ -48,15 +62,24 @@ namespace FoodService.HttpRequest
         /// <returns>A response containing the product.</returns>
         public async Task<ResponseCommon<Product>> GetProductById(int id)
         {
-            _logger.LogInformation($"Fetching product with ID: {id}");
-            var response = await _httpClient.GetFromJsonAsync<ResponseCommon<Product>>(_baseUrl + $"/api/Product/{id}");
-            if (response == null)
+            try
             {
-                _logger.LogError($"Failed to fetch product with ID: {id}.");
-                throw new Exception($"Failed to fetch product with ID: {id}.");
-            }
+                _logger.LogInformation($"Fetching product with ID: {id}");
+                var response = await _httpClient.GetAsync($"/api/Product/{id}");
+                if (response == null)
+                {
+                    _logger.LogError($"Failed to fetch product with ID: {id}.");
+                    throw new Exception($"Failed to fetch product with ID: {id}.");
+                }
 
-            return response;
+                return await HttpUtils.HandleResponse<Product>(response);
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = $"Error occurred while fetching product with ID: {id}.";
+                _logger.LogError(ex, errorMessage);
+                return await Task.FromResult(HttpUtils.FailedRequest<Product>(errorMessage, 500));
+            }
         }
 
         /// <summary>
@@ -66,11 +89,21 @@ namespace FoodService.HttpRequest
         /// <returns>A response containing the created product.</returns>
         public async Task<ResponseCommon<Product>> CreateProduct(Product product)
         {
-            _logger.LogInformation("Creating a new product");
-            var response = await _httpClient.PostAsJsonAsync(_baseUrl + "/api/Product", product);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                _logger.LogInformation("Creating a new product");
+                var json = JsonSerializer.Serialize(product);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return await response.Content.ReadFromJsonAsync<ResponseCommon<Product>>();
+                var response = await _httpClient.PostAsync("/api/Product", content);
+                return await HttpUtils.HandleResponse<Product>(response);
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Error occurred while creating a new product.";
+                _logger.LogError(ex, errorMessage);
+                return await Task.FromResult(HttpUtils.FailedRequest<Product>(errorMessage, 500));
+            }
         }
 
         /// <summary>
@@ -81,11 +114,23 @@ namespace FoodService.HttpRequest
         /// <returns>A response containing the updated product.</returns>
         public async Task<ResponseCommon<Product>> UpdateProduct(int id, Product product)
         {
-            _logger.LogInformation($"Updating product with ID: {id}");
-            var response = await _httpClient.PutAsJsonAsync(_baseUrl + $"/api/Product/{id}", product);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                _logger.LogInformation($"Updating product with ID: {id}");
+                var json = JsonSerializer.Serialize(product);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return await response.Content.ReadFromJsonAsync<ResponseCommon<Product>>();
+                var response = await _httpClient.PutAsJsonAsync($"/api/Product/{id}", content);
+                response.EnsureSuccessStatusCode();
+
+                return await HttpUtils.HandleResponse<Product>(response);
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = $"Error occurred while updating product with ID: {id}.";
+                _logger.LogError(ex, errorMessage);
+                return await Task.FromResult(HttpUtils.FailedRequest<Product>(errorMessage, 500));
+            }
         }
 
         /// <summary>
@@ -95,9 +140,18 @@ namespace FoodService.HttpRequest
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task DeleteProduct(int id)
         {
-            _logger.LogInformation($"Deleting product with ID: {id}");
-            var response = await _httpClient.DeleteAsync(_baseUrl + $"/api/Product/{id}");
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                _logger.LogInformation($"Deleting product with ID: {id}");
+                var response = await _httpClient.DeleteAsync($"/api/Product/{id}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = $"Error occurred while deleting product with ID: {id}.";
+                _logger.LogError(ex, errorMessage);
+                throw new Exception(errorMessage);
+            }
         }
     }
 }

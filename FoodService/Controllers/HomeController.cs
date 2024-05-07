@@ -2,7 +2,7 @@
 using FoodService.ViewModel;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Localization;
-using FoodService.Config.Globalization;
+using FoodService.Config;
 
 namespace FoodService.Controllers
 {

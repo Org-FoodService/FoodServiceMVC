@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Reflection;
 
-namespace FoodService.Config.Globalization
+namespace FoodService.Config
 {
     /// <summary>
     /// Configuration class for globalization settings.

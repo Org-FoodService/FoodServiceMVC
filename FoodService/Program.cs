@@ -1,11 +1,11 @@
-using FoodService.Config.Ioc;
 using FoodService.Config.Globalization;
+using FoodService.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add IOC
-builder.Services.ConfigureHttpRequestIoc();
+builder.Services.ConfigureHttpRequestIoc(builder);
 
 builder.Services.AddControllersWithViews();
 

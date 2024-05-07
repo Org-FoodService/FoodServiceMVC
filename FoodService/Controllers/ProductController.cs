@@ -1,4 +1,4 @@
-﻿using FoodService.Config.Globalization;
+﻿using FoodService.Config;
 using FoodService.HttpRequest.Interface;
 using FoodService.ViewModel;
 using Microsoft.AspNetCore.Mvc;
