@@ -1,4 +1,4 @@
-﻿using FoodService.Nuget.Models;
+﻿using FoodService.Models;
 
 namespace FoodService.HttpRequest.Interface
 {

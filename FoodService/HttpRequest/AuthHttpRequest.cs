@@ -1,6 +1,6 @@
-﻿using FoodService.Nuget.Models.Dto;
-using FoodService.Nuget.Models.Auth.User;
-using FoodService.Nuget.Models;
+﻿using FoodService.Models.Dto;
+using FoodService.Models.Auth.User;
+using FoodService.Models;
 using System.Text.Json;
 using System.Text;
 using FoodService.HttpRequest.Interface;
@@ -65,7 +65,7 @@ namespace FoodService.HttpRequest
         /// </summary>
         /// <param name="signInDto">The DTO containing sign-in information.</param>
         /// <returns>A response containing the Single Sign-On (SSO) token.</returns>
-        public async Task SignIn(SignInDto signInDto)
+        public async Task<ResponseCommon<bool>> SignIn(SignInDto signInDto)
         {
             try
             {
@@ -79,11 +79,14 @@ namespace FoodService.HttpRequest
 
                 var ssoDto = result.Data;
                 AccessTokenManager.Instance.SetAccessToken(ssoDto.AccessToken, ssoDto.Expiration);
+
+                return ResponseCommon<bool>.Success(true);
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while signing user.";
                 _logger.LogError(ex, errorMessage);
+                return await Task.FromResult(HttpUtils.FailedRequest<bool>(errorMessage, 500));
             }
         }
 

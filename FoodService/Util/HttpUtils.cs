@@ -1,4 +1,4 @@
-﻿using FoodService.Nuget.Models;
+﻿using FoodService.Models;
 using System.Text.Json;
 
 namespace FoodService.Util

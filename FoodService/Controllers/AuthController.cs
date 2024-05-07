@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FoodService.HttpRequest.Interface;
-using FoodService.Nuget.Models.Dto;
+using FoodService.Models.Dto;
 using FoodService.Config;
 
 namespace FoodService.Controllers

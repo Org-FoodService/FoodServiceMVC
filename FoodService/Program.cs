@@ -1,4 +1,3 @@
-using FoodService.Config.Globalization;
 using FoodService.Config;
 
 var builder = WebApplication.CreateBuilder(args);

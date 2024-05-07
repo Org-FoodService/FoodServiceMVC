@@ -1,5 +1,5 @@
 ﻿using FoodService.HttpRequest.Interface;
-using FoodService.Nuget.Models;
+using FoodService.Models;
 using FoodService.Util;
 using System.Text.Json;
 using System.Text;

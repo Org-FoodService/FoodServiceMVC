@@ -1,6 +1,6 @@
-﻿using FoodService.Nuget.Models.Dto;
-using FoodService.Nuget.Models;
-using FoodService.Nuget.Models.Auth.User;
+﻿using FoodService.Models.Dto;
+using FoodService.Models;
+using FoodService.Models.Auth.User;
 
 namespace FoodService.HttpRequest.Interface
 {
@@ -10,7 +10,7 @@ namespace FoodService.HttpRequest.Interface
         Task<ResponseCommon<UserBase>> GetCurrentUser();
         Task<ResponseCommon<UserDto>> GetUserDto(int id);
         Task<ResponseCommon<List<ClientUser>>> ListUsers();
-        Task<ResponseCommon<SsoDto>> SignIn(SignInDto signInDto);
+        Task<ResponseCommon<bool>> SignIn(SignInDto signInDto);
         Task<ResponseCommon<bool>> SignUp(SignUpDto signUpDto);
     }
 }
