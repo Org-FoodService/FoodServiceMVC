@@ -54,25 +54,6 @@ namespace FoodService.Config
         /// <param name="app">The web application.</param>
         public static void ConfigureGlobalization(this WebApplication app)
         {
-            // Middleware to set the current culture based on the request path
-            app.Use(async (context, next) =>
-            {
-                var pathSegments = context.Request.Path.Value.Split('/');
-                if (pathSegments.Length > 1)
-                {
-                    var culture = pathSegments[1];
-                    var supportedCultures = new[] { "en", "pt-BR" };
-
-                    if (supportedCultures.Contains(culture))
-                    {
-                        CultureInfo.CurrentCulture = new CultureInfo(culture);
-                        CultureInfo.CurrentUICulture = new CultureInfo(culture);
-                    }
-                }
-
-                await next();
-            });
-
             // Configures request localization middleware
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
         }

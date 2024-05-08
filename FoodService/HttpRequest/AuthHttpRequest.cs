@@ -1,35 +1,23 @@
 ﻿using FoodService.Models.Dto;
 using FoodService.Models.Auth.User;
 using FoodService.Models;
-using System.Text.Json;
-using System.Text;
-using FoodService.HttpRequest.Interface;
 using FoodService.Util;
-using FoodService.Config;
+using FoodService.HttpRequest.Interface;
 
 namespace FoodService.HttpRequest
 {
     /// <summary>
     /// Provides methods for making HTTP requests related to authentication.
     /// </summary>
-    public class AuthHttpRequest : IAuthHttpRequest
+    public class AuthHttpRequest : BaseHttpRequest<AuthHttpRequest>, IAuthHttpRequest
     {
-        private readonly HttpClient _httpClient;
-        private readonly string? _baseUrl;
-        private readonly ILogger<AuthHttpRequest> _logger;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthHttpRequest"/> class.
         /// </summary>
         /// <param name="baseUrl">The base URL of the authentication service.</param>
         /// <param name="logger">The logger instance.</param>
-        public AuthHttpRequest(string baseUrl, ILogger<AuthHttpRequest> logger)
+        public AuthHttpRequest(string baseUrl, ILogger<AuthHttpRequest> logger) : base(baseUrl, logger)
         {
-            _httpClient = new HttpClient();
-            _baseUrl = baseUrl.TrimEnd('/');
-            _httpClient.BaseAddress = new Uri(_baseUrl);
-
-            _logger = logger;
         }
 
         /// <summary>
@@ -43,20 +31,13 @@ namespace FoodService.HttpRequest
             {
                 _logger.LogInformation("Sign up user...");
 
-                var json = JsonSerializer.Serialize(signUpDto);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var response = await _httpClient.PostAsync("/sign-up", content);
-
-                _logger.LogInformation("Sign up request sent.");
-
-                return await HttpUtils.HandleResponse<bool>(response);
+                return await PostAsync<bool>("/sign-up", signUpDto);
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while sign up user.";
                 _logger.LogError(ex, message: errorMessage);
-                return await Task.FromResult(HttpUtils.FailedRequest<bool>(errorMessage, 500));
+                return HttpUtils.FailedRequest<bool>(errorMessage, 500);
             }
         }
 
@@ -71,11 +52,7 @@ namespace FoodService.HttpRequest
             {
                 _logger.LogInformation("Sign in user...");
 
-                var json = JsonSerializer.Serialize(signInDto);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var response = await _httpClient.PostAsync("/sign-in", content);
-                var result =  await HttpUtils.HandleResponse<SsoDto>(response);
+                var result = await PostAsync<SsoDto>("/sign-in", signInDto);
 
                 var ssoDto = result.Data;
                 AccessTokenManager.Instance.SetAccessToken(ssoDto.AccessToken, ssoDto.Expiration);
@@ -86,7 +63,7 @@ namespace FoodService.HttpRequest
             {
                 var errorMessage = "Error occurred while signing user.";
                 _logger.LogError(ex, errorMessage);
-                return await Task.FromResult(HttpUtils.FailedRequest<bool>(errorMessage, 500));
+                return HttpUtils.FailedRequest<bool>(errorMessage, 500);
             }
         }
 
@@ -99,14 +76,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                var response = await _httpClient.PostAsync($"/add-user-to-admin-role?userId={userId}", null);
-                return await HttpUtils.HandleResponse<bool>(response);
+                return await PostAsync<bool>($"/add-user-to-admin-role?userId={userId}", null);
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while adding user to admin role.";
                 _logger.LogError(ex, errorMessage);
-                return await Task.FromResult(HttpUtils.FailedRequest<bool>(errorMessage, 500));
+                return HttpUtils.FailedRequest<bool>(errorMessage, 500);
             }
         }
 
@@ -118,14 +94,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                var response = await _httpClient.GetAsync("/get-current-user");
-                return await HttpUtils.HandleResponse<UserBase>(response);
+                return await GetAsync<UserBase>("/get-current-user");
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while retrieving current user.";
                 _logger.LogError(ex, errorMessage);
-                return await Task.FromResult(HttpUtils.FailedRequest<UserBase>(errorMessage, 500));
+                return HttpUtils.FailedRequest<UserBase>(errorMessage, 500);
             }
         }
 
@@ -138,14 +113,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                var response = await _httpClient.GetAsync($"/get-userdto?id={id}");
-                return await HttpUtils.HandleResponse<UserDto>(response);
+                return await GetAsync<UserDto>($"/get-userdto?id={id}");
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while retrieving user DTO.";
                 _logger.LogError(ex, errorMessage);
-                return await Task.FromResult(HttpUtils.FailedRequest<UserDto>(errorMessage, 500));
+                return HttpUtils.FailedRequest<UserDto>(errorMessage, 500);
             }
         }
 
@@ -157,14 +131,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                var response = await _httpClient.GetAsync("/list-users");
-                return await HttpUtils.HandleResponse<List<ClientUser>>(response);
+                return await GetAsync<List<ClientUser>>("/list-users");
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while listing users.";
                 _logger.LogError(ex, errorMessage);
-                return await Task.FromResult(HttpUtils.FailedRequest<List<ClientUser>>(errorMessage, 500));
+                return HttpUtils.FailedRequest<List<ClientUser>>(errorMessage, 500);
             }
         }
     }

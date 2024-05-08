@@ -30,11 +30,6 @@ app.ConfigureGlobalization();
 app.UseEndpoints(endpoints =>
 {
     _ = endpoints.MapControllerRoute(
-        name: "LocalizedDefault",
-        pattern: "{culture}/{controller=Home}/{action=Index}/{id?}",
-        constraints: new { culture = new CultureRouteConstraint() });
-
-    _ = endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
