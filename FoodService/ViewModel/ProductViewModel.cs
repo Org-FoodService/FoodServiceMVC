@@ -1,5 +1,6 @@
 ﻿using FoodService.Util;
-using FoodService.Models;
+using FoodService.Models.Entities;
+using System.Globalization;
 
 namespace FoodService.ViewModel
 {
@@ -17,7 +18,7 @@ namespace FoodService.ViewModel
             Description = product.Description?.ToString() ?? "";
             Name = product.Name;
             Price = CurrencyUtils.FormatCurrency(product.Price);
-            Type = product.Type.GetEnumDescription() ?? "";
+            Type = product.Type.GetEnumDescription(CultureInfo.CurrentCulture) ?? "";
         }
 
         /// <summary>

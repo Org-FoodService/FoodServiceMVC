@@ -1,6 +1,6 @@
 ﻿using FoodService.HttpRequest.Interface;
-using FoodService.Models;
-using FoodService.Util;
+using FoodService.Models.Entities;
+using FoodService.Models.Responses;
 
 namespace FoodService.HttpRequest
 {
@@ -17,18 +17,18 @@ namespace FoodService.HttpRequest
         /// Retrieves all products from the API.
         /// </summary>
         /// <returns>A response containing an array of products.</returns>
-        public async Task<ResponseCommon<Product[]>> GetAllProducts()
+        public async Task<ResponseCommon<List<Product>>?> GetAllProducts()
         {
             try
             {
                 _logger.LogInformation("Fetching all products");
-                return await GetAsync<Product[]>("/api/Product");
+                return await GetAsync<ResponseCommon<List<Product>>?>("/api/Product");
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while fetching all products.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<Product[]>(errorMessage, 500);
+                return FailedRequest<List<Product>>(errorMessage, 500);
             }
         }
 
@@ -37,18 +37,18 @@ namespace FoodService.HttpRequest
         /// </summary>
         /// <param name="id">The ID of the product.</param>
         /// <returns>A response containing the product.</returns>
-        public async Task<ResponseCommon<Product>> GetProductById(int id)
+        public async Task<ResponseCommon<Product>?> GetProductById(int id)
         {
             try
             {
                 _logger.LogInformation($"Fetching product with ID: {id}");
-                return await GetAsync<Product>($"/api/Product/{id}");
+                return await GetAsync<ResponseCommon<Product>>($"/api/Product/{id}");
             }
             catch (Exception ex)
             {
                 var errorMessage = $"Error occurred while fetching product with ID: {id}.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<Product>(errorMessage, 500);
+                return FailedRequest<Product>(errorMessage, 500);
             }
         }
 
@@ -57,18 +57,18 @@ namespace FoodService.HttpRequest
         /// </summary>
         /// <param name="product">The product to create.</param>
         /// <returns>A response containing the created product.</returns>
-        public async Task<ResponseCommon<Product>> CreateProduct(Product product)
+        public async Task<ResponseCommon<Product>?> CreateProduct(Product product)
         {
             try
             {
                 _logger.LogInformation("Creating a new product");
-                return await PostAsync<Product>("/api/Product", product, useCryptoToken: true);
+                return await PostAsync<ResponseCommon<Product>>("/api/Product", product, useCryptoToken: true);
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while creating a new product.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<Product>(errorMessage, 500);
+                return FailedRequest<Product>(errorMessage, 500);
             }
         }
 
@@ -78,18 +78,18 @@ namespace FoodService.HttpRequest
         /// <param name="id">The ID of the product to update.</param>
         /// <param name="product">The updated product data.</param>
         /// <returns>A response containing the updated product.</returns>
-        public async Task<ResponseCommon<Product>> UpdateProduct(int id, Product product)
+        public async Task<ResponseCommon<Product>?> UpdateProduct(int id, Product product)
         {
             try
             {
                 _logger.LogInformation($"Updating product with ID: {id}");
-                return await PutAsync<Product>($"/api/Product/{id}", product, useCryptoToken: true);
+                return await PutAsync<ResponseCommon<Product>>($"/api/Product/{id}", product, useCryptoToken: true);
             }
             catch (Exception ex)
             {
                 var errorMessage = $"Error occurred while updating product with ID: {id}.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<Product>(errorMessage, 500);
+                return FailedRequest<Product>(errorMessage, 500);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using FoodService.Models.Dto;
-using FoodService.Models;
 using FoodService.Models.Auth.User;
+using FoodService.Models.Responses;
 
 namespace FoodService.HttpRequest.Interface
 {

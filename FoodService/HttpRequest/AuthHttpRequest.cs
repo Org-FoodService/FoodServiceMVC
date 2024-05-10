@@ -3,6 +3,7 @@ using FoodService.Models.Auth.User;
 using FoodService.Models;
 using FoodService.Util;
 using FoodService.HttpRequest.Interface;
+using FoodService.Models.Responses;
 
 namespace FoodService.HttpRequest
 {
@@ -31,13 +32,13 @@ namespace FoodService.HttpRequest
             {
                 _logger.LogInformation("Sign up user...");
 
-                return await PostAsync<bool>("/sign-up", signUpDto);
+                return await PostAsync<ResponseCommon<bool>>("/sign-up", signUpDto);
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while sign up user.";
                 _logger.LogError(ex, message: errorMessage);
-                return HttpUtils.FailedRequest<bool>(errorMessage, 500);
+                return FailedRequest<bool>(errorMessage, 500);
             }
         }
 
@@ -52,7 +53,7 @@ namespace FoodService.HttpRequest
             {
                 _logger.LogInformation("Sign in user...");
 
-                var result = await PostAsync<SsoDto>("/sign-in", signInDto);
+                var result = await PostAsync<ResponseCommon<SsoDto>>("/sign-in", signInDto);
 
                 var ssoDto = result.Data;
                 AccessTokenManager.Instance.SetAccessToken(ssoDto.AccessToken, ssoDto.Expiration);
@@ -63,7 +64,7 @@ namespace FoodService.HttpRequest
             {
                 var errorMessage = "Error occurred while signing user.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<bool>(errorMessage, 500);
+                return FailedRequest<bool>(errorMessage, 500);
             }
         }
 
@@ -76,13 +77,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await PostAsync<bool>($"/add-user-to-admin-role?userId={userId}", null);
+                return await PostAsync<ResponseCommon<bool>>($"/add-user-to-admin-role?userId={userId}", null);
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while adding user to admin role.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<bool>(errorMessage, 500);
+                return FailedRequest<bool>(errorMessage, 500);
             }
         }
 
@@ -94,13 +95,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await GetAsync<UserBase>("/get-current-user");
+                return await GetAsync<ResponseCommon<UserBase>>("/get-current-user");
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while retrieving current user.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<UserBase>(errorMessage, 500);
+                return FailedRequest<UserBase>(errorMessage, 500);
             }
         }
 
@@ -113,13 +114,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await GetAsync<UserDto>($"/get-userdto?id={id}");
+                return await GetAsync< ResponseCommon<UserDto>>($"/get-userdto?id={id}");
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while retrieving user DTO.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<UserDto>(errorMessage, 500);
+                return FailedRequest<UserDto>(errorMessage, 500);
             }
         }
 
@@ -131,13 +132,13 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await GetAsync<List<ClientUser>>("/list-users");
+                return await GetAsync<ResponseCommon<List<ClientUser>>>("/list-users");
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while listing users.";
                 _logger.LogError(ex, errorMessage);
-                return HttpUtils.FailedRequest<List<ClientUser>>(errorMessage, 500);
+                return FailedRequest<List<ClientUser>>(errorMessage, 500);
             }
         }
     }

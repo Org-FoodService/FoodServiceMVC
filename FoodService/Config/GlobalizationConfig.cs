@@ -28,8 +28,8 @@ namespace FoodService.Config
             {
                 options.DataAnnotationLocalizerProvider = (type, factory) =>
                 {
-                    var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
-                    return factory.Create("SharedResource", assemblyName.Name);
+                    var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName!);
+                    return factory.Create("SharedResource", assemblyName.Name!);
                 };
             });
 
@@ -46,6 +46,11 @@ namespace FoodService.Config
                 options.SupportedUICultures = supportedCultures;
                 options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
             });
+
+            // Configure EnumExtensions with IStringLocalizerFactory
+            var serviceProvider = services.BuildServiceProvider();
+            var localizerFactory = serviceProvider.GetService<IStringLocalizerFactory>();
+            EnumExtensions.SetLocalizerFactory(localizerFactory!);
         }
 
         /// <summary>
@@ -78,8 +83,8 @@ namespace FoodService.Config
         public LanguageService(IStringLocalizerFactory factory)
         {
             var type = typeof(SharedResource);
-            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
-            _localizer = factory.Create("SharedResource", assemblyName.Name);
+            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName!);
+            _localizer = factory.Create("SharedResource", assemblyName.Name!);
         }
 
         /// <summary>
