@@ -22,7 +22,7 @@ export default class Item {
                     <p class="productPrice">${this.price}</p>
                     <input type="number" value="1" class="numberOfItems">
                 </div>
-                <span class="material-symbols-outlined delete_button">delete_forever</span>
+                <span class="material-symbols-outlined delete_button">close</span>
             </div>`;
 
         const inputQuantityOfItems = containerItem.querySelector(".numberOfItems");

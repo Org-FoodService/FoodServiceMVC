@@ -18,5 +18,5 @@ export default function initTotalCartValue(newQuantity) {
         }, 0);
         totalValue.innerHTML = `R$${totalValueOfItems.toFixed(2)}`;
     }
-    totalItems.innerHTML = `${totalQuantityOfItems} Products`;
+    totalItems.innerHTML = `${totalQuantityOfItems} Itens`;
 }

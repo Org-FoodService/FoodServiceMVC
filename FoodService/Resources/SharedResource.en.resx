@@ -120,6 +120,18 @@
   <data name="Beverage" xml:space="preserve">
     <value>Beverage</value>
   </data>
+  <data name="CART_AlertMessage" xml:space="preserve">
+    <value>You already have this item in the cart!</value>
+  </data>
+  <data name="CART_CloseOrder" xml:space="preserve">
+    <value>Close Order</value>
+  </data>
+  <data name="CART_EmptyMessage" xml:space="preserve">
+    <value>Your cart is empty</value>
+  </data>
+  <data name="CART_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>

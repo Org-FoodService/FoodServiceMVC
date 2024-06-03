@@ -120,6 +120,18 @@
   <data name="Beverage" xml:space="preserve">
     <value>Bebida</value>
   </data>
+  <data name="CART_AlertMessage" xml:space="preserve">
+    <value>Você já possui esse item no carrinho!</value>
+  </data>
+  <data name="CART_CloseOrder" xml:space="preserve">
+    <value>Fechar Pedido</value>
+  </data>
+  <data name="CART_EmptyMessage" xml:space="preserve">
+    <value>Seu carrinho está vázio</value>
+  </data>
+  <data name="CART_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Descrição</value>
   </data>
@@ -127,7 +139,7 @@
     <value>Prato</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Pagina Inicial</value>
+    <value>Página Inicial</value>
   </data>
   <data name="Ingredient" xml:space="preserve">
     <value>Ingrediente</value>

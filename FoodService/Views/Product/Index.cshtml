@@ -1,26 +1,20 @@
 ﻿@model List<FoodService.ViewModel.ProductViewModel>
 
-<h2>Lista de Products</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>@_localization.Getkey("Name")</th>
-            <th>@_localization.Getkey("Description")</th>
-            <td>@_localization.Getkey("Type")</td>
-            <td>@_localization.Getkey("Price")</td>
-        </tr>
-    </thead>
-    <tbody>
+<section class="product-grid">
+    <ul class="showcase">
         @foreach (var Product in Model)
         {
-            <tr>
-                <td>@Product.Name</td>
-                <td>@Product.Description</td>
-                <td>@Product.Type</td>
-                <td>@Product.Price</td>
-
-            </tr>
+            <li>
+                <i class="material-symbols-outlined">favorite</i>
+                <img class="image" src="@Product.Image" alt="Imagem tênis" data-informations />
+                <span class="price" data-informations>@Product.Price</span>
+                <div class="information">
+                    <h1 class="name" data-informations>@Product.Name</h1>
+                    <h2 class="type" data-informations>@Product.Type</h2>
+                    <p class="additional_info" data-informations>@Product.Description</p>
+                    <span class="material-symbols-outlined btnAddCart">add_shopping_cart</span>
+                </div>
+            </li>
         }
-    </tbody>
-</table>
+    </ul>
+</section>

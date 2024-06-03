@@ -19,6 +19,7 @@ namespace FoodService.ViewModel
             Name = product.Name;
             Price = CurrencyUtils.FormatCurrency(product.Price);
             Type = product.Type.GetEnumDescription(CultureInfo.CurrentCulture) ?? "";
+            Image = product.Image;
         }
 
         /// <summary>
@@ -40,5 +41,10 @@ namespace FoodService.ViewModel
         /// Gets or sets the type of the product.
         /// </summary>
         public string Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Image URL
+        /// </summary>
+        public string Image { get; set; }
     }
 }
