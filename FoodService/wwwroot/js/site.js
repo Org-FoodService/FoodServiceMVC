@@ -1,6 +1,19 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-import { initSiteSettings } from "./siteSettings.js";
+﻿import { initSiteSettings } from "./siteSettings.js";
+import { LoadingComponent } from "./loading/loading.js"
 
-// Initialize site settings when the document is ready
-initSiteSettings()
+
+var loading = new LoadingComponent()
+
+// Show loading spinner immediately
+loading.show();
+
+// Call initSiteSettings and hide loading spinner when done
+initSiteSettings().then(() => {
+    // Log: initSiteSettings completed successfully
+    console.log("initSiteSettings completed successfully.");
+    loading.hide();
+}).catch(error => {
+    // Log: Error initializing site settings
+    console.error("Error initializing site settings:", error);
+    loading.hide();
+});

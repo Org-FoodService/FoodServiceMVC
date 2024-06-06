@@ -85,7 +85,7 @@ export function setInputs() {
  * Initialize site settings
  */
 export function initSiteSettings() {
-    getSiteSettings().then(response => {
+    return getSiteSettings().then(response => {
         $('#serviceName').html(response.serviceName);
 
         // Set the CSS variables based on the response
