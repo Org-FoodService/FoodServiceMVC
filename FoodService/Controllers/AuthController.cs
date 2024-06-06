@@ -85,10 +85,10 @@ namespace FoodService.Controllers
         /// <summary>
         /// Handles the sign-in form submission.
         /// </summary>
-        /// <param name="signInDTO">The sign-in data.</param>
+        /// <param name="signInDto">The sign-in data.</param>
         /// <returns>The appropriate view based on success or failure of sign-in.</returns>
         [HttpPost]
-        public async Task<IActionResult> SignIn(SignInDto signInDTO)
+        public async Task<IActionResult> SignIn(SignInDto signInDto)
         {
             _logger.LogInformation("Attempting sign-in.");
 
@@ -96,18 +96,18 @@ namespace FoodService.Controllers
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Invalid model state during sign-in.");
-                return View(signInDTO);
+                return View(signInDto);
             }
 
             // Call the SignIn method from the authentication command
-            var response = await _authHttpRequest.SignIn(signInDTO);
+            var response = await _authHttpRequest.SignIn(signInDto);
 
             // If the SignIn operation was not successful, add error message to model state and return to the view
             if (!response.IsSuccess)
             {
                 _logger.LogError("Sign-in failed: {ErrorMessage}", response.Message);
                 ModelState.AddModelError("", response.Message);
-                return View(signInDTO);
+                return View(signInDto);
             }
 
             _logger.LogInformation("Sign-in successful. Redirecting to home page.");

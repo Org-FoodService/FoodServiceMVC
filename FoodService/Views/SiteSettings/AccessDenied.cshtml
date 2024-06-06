@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<style>
+    .no-access-container {
+        text-align: center;
+        padding: 50px;
+    }
+
+        .no-access-container h1 {
+            color: var(--primary-color); 
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .no-access-container p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .no-access-container a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #3498db; 
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            .no-access-container a:hover {
+                background-color: #2980b9; 
+            }
+</style>
+
+<div class="no-access-container">
+    <h1>Access Denied</h1>
+    <p>You do not have permission to access this page.</p>
+    <a href="/">Return to Home</a>
+</div>

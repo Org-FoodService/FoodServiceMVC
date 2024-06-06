@@ -27,5 +27,28 @@ namespace FoodService.Controllers
             _logger = logger;
             _localization = localization;
         }
+
+        public bool UserHasRoleAdmin()
+        {
+            if(IsLoggedIn())
+                return UserHasRole("Admin");
+            else return false;
+        }
+
+        private bool UserHasRole(string role)
+        {
+            var roles = AccessTokenManager.Instance.GetRoles();
+            return roles != null && roles.Contains(role);
+        }
+
+        /// <summary>
+        /// Checks if the user is logged in.
+        /// </summary>
+        /// <returns>True if the user is logged in, otherwise false.</returns>
+        public bool IsLoggedIn()
+        {
+            var accessToken = AccessTokenManager.Instance.GetAccessToken();
+            return !string.IsNullOrEmpty(accessToken);
+        }
     }
 }
