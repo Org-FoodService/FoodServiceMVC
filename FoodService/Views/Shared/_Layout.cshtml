@@ -12,43 +12,41 @@
 <body>
     <header>
         <div class="logo">
-            <img src="~/favicon.ico" />
+            <a asp-controller="Home" asp-action="Index">
+                <img src="~/favicon.ico" />
+                <span id="serviceName"></span>
+            </a>
         </div>
         <nav class="nav-bar">
             <ul>
+                @* <li>
+                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">@_localization.GetKey("Home")</a>
+                </li> *@
                 <li>
-                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">@_localization.Getkey("Home")</a>
+                    <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">@_localization.GetKey("Menu")</a>
                 </li>
-                <li>
-                    <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">@_localization.Getkey("Menu")</a>
-                </li>
-                <li>
-                    <a class="nav-link text-dark" asp-controller="Auth" asp-action="SignUp" class="btn btn-link custom-link">@_localization.Getkey("SignUp")</a>
-                </li>
-                <li>
-                    <a class="nav-link text-dark" asp-controller="Auth" asp-action="SignIn" class="btn btn-link custom-link">@_localization.Getkey("SignIn")</a>
-                </li>
+                @await Component.InvokeAsync("AuthenticationStatus")
                 <li>
                     <span class="material-symbols-outlined cart-button">shopping_cart</span>
                     <span class="number_cart">0</span>
                     <ul class="modal-cart">
                         <div class="emptyCartMessage">
                             <span class="material-symbols-outlined cart-button">remove_shopping_cart</span>
-                            <h1>@_localization.Getkey("CART_EmptyMessage")</h1>
+                            <h1>@_localization.GetKey("CART_EmptyMessage")</h1>
                         </div>
                         <div class="totalCart">
                             <div class="subTotal">
                                 <h1>Subtotal - <span class="totalItems">1 Item</span></h1>
                                 <span class="totalValue">R$2400</span>
                             </div>
-                            <button>@_localization.Getkey("CART_CloseOrder")</button>
+                            <button>@_localization.GetKey("CART_CloseOrder")</button>
                         </div>
                     </ul>
                 </li>
             </ul>
         </nav>
         <div class="alert_message">
-            <p>@_localization.Getkey("CART_AlertMessage")</p>
+            <p>@_localization.GetKey("CART_AlertMessage")</p>
         </div>
     </header>
 
@@ -64,10 +62,13 @@
         </div>
     </footer>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/js/site.js" type="module" asp-append-version="true"></script>
     <script src="~/js/shoppingCart/index.js" type="module"></script>
+    <script src="~/js/siteSettings.js" type="module"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

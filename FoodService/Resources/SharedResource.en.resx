@@ -144,6 +144,9 @@
   <data name="Ingredient" xml:space="preserve">
     <value>Ingredient</value>
   </data>
+  <data name="Logged" xml:space="preserve">
+    <value>Logged</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>

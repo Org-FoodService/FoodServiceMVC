@@ -1,0 +1,28 @@
+﻿.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input[type="color"] {
+        width: 100px;
+    }
+
+    .form-group input[type="file"] {
+        display: block;
+    }
+
+    .form-group input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+#preview {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+}

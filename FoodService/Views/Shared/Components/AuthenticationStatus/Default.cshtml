@@ -1,0 +1,17 @@
+﻿@model bool
+
+@if (!Model)
+{
+    <li>
+        <a class="nav-link text-dark" asp-controller="Auth" asp-action="SignUp" class="btn btn-link custom-link">@_localization.GetKey("SignUp")</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-controller="Auth" asp-action="SignIn" class="btn btn-link custom-link">@_localization.GetKey("SignIn")</a>
+    </li>
+}
+else
+{
+    <li>
+        @_localization.GetKey("Profile")
+    </li>
+}

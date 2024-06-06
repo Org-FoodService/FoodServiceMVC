@@ -1,3 +1,14 @@
+:root {
+    --dark-color: #412D2C;
+    --primary-color: #AA2E26;
+    --secondary-color: #FB9F3A;
+    --tertiary-color: #2CAB61;
+    --green-color: #376B4C;
+    --success-color: #02EB62;
+    --danger-color: #8E291F;
+    --background-color: #f0f0f0;
+}
+
 html {
   font-size: 14px;
 }
@@ -14,5 +25,6 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: var(--background-color);
 }

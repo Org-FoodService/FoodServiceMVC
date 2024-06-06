@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Site Settings";
+}
+
+<script type="module">
+    import { setInputs, saveSiteSettings } from '/js/sitesettings.js';
+
+    const saveButton = document.getElementById('saveButton');
+    saveButton.addEventListener('click', function () {
+        saveSiteSettings().then(() => {
+            window.location.reload(true);
+        }).catch(error => {
+            console.error("There was an error with saving settings:", error);
+        });
+    });
+
+    // Call setInputs to populate the form with current settings when the page loads
+    setInputs();
+</script>
+
+<link href="~/css/sitesettings.css" rel="stylesheet" />
+
+<h1>Customize Site Settings</h1>
+<div class="container">
+    <form id="siteSettingsForm">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="primaryColor">Primary Color</label>
+                    <input type="color" id="primaryColor" name="primaryColor">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="secondaryColor">Secondary Color</label>
+                    <input type="color" id="secondaryColor" name="secondaryColor">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="tertiaryColor">Tertiary Color</label>
+                    <input type="color" id="tertiaryColor" name="tertiaryColor">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="backgroundColor">Background Color</label>
+                    <input type="color" id="backgroundColor" name="backgroundColor">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="darkColor">Dark Color</label>
+                    <input type="color" id="darkColor" name="darkColor">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="greenColor">Green Color</label>
+                    <input type="color" id="greenColor" name="greenColor">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="successColor">Success Color</label>
+                    <input type="color" id="successColor" name="successColor">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="dangerColor">Danger Color</label>
+                    <input type="color" id="dangerColor" name="dangerColor">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="serviceName">Service Name</label>
+            <input type="text" id="serviceName" name="serviceName">
+        </div>
+        <div class="form-group">
+            <label for="icon">Service Icon</label>
+            <input type="file" id="icon" name="icon" accept="image/*">
+        </div>
+        <button type="button" id="saveButton">Save Settings</button>
+    </form>
+</div>

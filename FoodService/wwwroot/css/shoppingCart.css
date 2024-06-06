@@ -20,9 +20,23 @@ header {
     border-bottom: 1px solid rgba(0, 0, 0, 0.105);
 }
 
-    header .logo img {
-        width: auto;
-    }
+        header .logo a {
+            display: flex;
+            text-decoration: none;
+            align-content: center;
+        }
+        header .logo a img {
+            width: auto;
+        }
+
+        header .logo a span {
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: x-large;
+            align-content: center;
+            margin-inline: 10px;
+        }
 
 .nav-bar ul {
     display: flex;
@@ -42,7 +56,7 @@ header {
 }
 
     .nav-bar ul li > span:hover {
-        color: #578263;
+        color: var(--green-color);
         transform: scale(1.15);
     }
 
@@ -147,14 +161,14 @@ header {
                     border-radius: 20px;
                     padding: 5px 20px;
                     color: white;
-                    background-color: rgba(0, 0, 0, 0.89);
+                    background-color: var(--dark-color);
                     font-size: 1.2rem;
                     cursor: pointer;
                     transition: all 0.2s ease;
                 }
 
                     .product-grid .showcase li .information span.btnAddCart:hover {
-                        background-color: #578263;
+                        background-color: var(--green-color);
                         transform: translateY(-5px) scale(1.1);
                     }
 
@@ -254,7 +268,7 @@ header {
         top: 10px;
         font-size: 1.2rem;
         padding: 5px;
-        background-color: rgba(0, 0, 0, 0.851);
+        background-color: var(--dark-color);
         border-radius: 50%;
         color: white;
         cursor: pointer;
@@ -333,14 +347,14 @@ input::-webkit-inner-spin-button {
     .subTotal .totalValue {
         padding: 7px 13px;
         font-size: 1rem;
-        background-color: rgba(0, 0, 0, 0.89);
+        background-color: var(--dark-color);
         color: white;
         border-radius: 15px;
     }
 
 .totalCart button {
     font-size: 1.1rem;
-    background-color: #578263;
+    background-color: var(--green-color);
     color: white;
     border: none;
     padding: 10px 30px;
@@ -352,7 +366,7 @@ input::-webkit-inner-spin-button {
 }
 
     .totalCart button:hover {
-        background-color: #385340;
+        background-color: var(--tertiary-color);
         transform: translateY(-1px) scale(1.005);
     }
 
@@ -375,7 +389,7 @@ input::-webkit-inner-spin-button {
 
     .emptyCartMessage span {
         font-size: 4.5rem;
-        color: rgba(0, 0, 0, 0.851);
+        color: var(--dark-color);
         margin-bottom: 30px;
     }
 

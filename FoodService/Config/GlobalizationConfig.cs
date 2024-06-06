@@ -92,7 +92,7 @@ namespace FoodService.Config
         /// </summary>
         /// <param name="key">The key of the localized string.</param>
         /// <returns>The localized string.</returns>
-        public LocalizedString Getkey(string key)
+        public LocalizedString GetKey(string key)
         {
             return _localizer[key];
         }

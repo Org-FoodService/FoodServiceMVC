@@ -119,9 +119,10 @@ namespace FoodService.HttpRequest
 
         private async Task<T?> HandleResponse<T>(HttpResponseMessage response)
         {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
             if (response.IsSuccessStatusCode)
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
                 var responseObject = JsonSerializer.Deserialize<T>(jsonResponse, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
@@ -130,6 +131,7 @@ namespace FoodService.HttpRequest
             }
             else
             {
+                _logger.LogError($"HTTP request failed with status code {(int)response.StatusCode}: {jsonResponse}");
                 var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new HttpRequestException($"HTTP request failed with status code {(int)response.StatusCode}: {errorMessage}");
             }
@@ -144,7 +146,7 @@ namespace FoodService.HttpRequest
         /// <returns>A failed response object with the specified error message and status code.</returns>
         public static ResponseCommon<T> FailedRequest<T>(string errorMessage, int statusCode)
         {
-            return ResponseCommon<T>.Failure("Error connecting to the API", statusCode, errorMessage);
+            return ResponseCommon<T>.Failure("Error connecting to the Client Server", statusCode, errorMessage);
         }
     }
 }

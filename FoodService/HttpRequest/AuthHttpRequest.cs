@@ -1,7 +1,5 @@
 ﻿using FoodService.Models.Dto;
 using FoodService.Models.Auth.User;
-using FoodService.Models;
-using FoodService.Util;
 using FoodService.HttpRequest.Interface;
 using FoodService.Models.Responses;
 
@@ -32,7 +30,7 @@ namespace FoodService.HttpRequest
             {
                 _logger.LogInformation("Sign up user...");
 
-                return await PostAsync<ResponseCommon<bool>>("/sign-up", signUpDto);
+                return await PostAsync<ResponseCommon<bool>>("/api/auth/sign-up", signUpDto);
             }
             catch (Exception ex)
             {
@@ -47,26 +45,34 @@ namespace FoodService.HttpRequest
         /// </summary>
         /// <param name="signInDto">The DTO containing sign-in information.</param>
         /// <returns>A response containing the Single Sign-On (SSO) token.</returns>
-        public async Task<ResponseCommon<bool>> SignIn(SignInDto signInDto)
+        public async Task<ResponseCommon<SsoDto>> SignIn(SignInDto signInDto)
         {
             try
             {
                 _logger.LogInformation("Sign in user...");
 
-                var result = await PostAsync<ResponseCommon<SsoDto>>("/sign-in", signInDto);
+                var result = await PostAsync<ResponseCommon<SsoDto>>("/api/auth/sign-in", signInDto);
 
-                var ssoDto = result.Data;
-                AccessTokenManager.Instance.SetAccessToken(ssoDto.AccessToken, ssoDto.Expiration);
+                if (result.IsSuccess)
+                {
+                    var ssoDto = result.Data;
+                    AccessTokenManager.Instance.SetAccessToken(ssoDto.AccessToken, ssoDto.Expiration, ssoDto.Roles);
 
-                return ResponseCommon<bool>.Success(true);
+                    return ResponseCommon<SsoDto>.Success(ssoDto);
+                }
+                else
+                {
+                    return ResponseCommon<SsoDto>.Failure(result.Message, result.StatusCode);
+                }
             }
             catch (Exception ex)
             {
                 var errorMessage = "Error occurred while signing user.";
                 _logger.LogError(ex, errorMessage);
-                return FailedRequest<bool>(errorMessage, 500);
+                return FailedRequest<SsoDto>(errorMessage, 500);
             }
         }
+
 
         /// <summary>
         /// Adds a user to the admin role.
@@ -77,7 +83,7 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await PostAsync<ResponseCommon<bool>>($"/add-user-to-admin-role?userId={userId}", null);
+                return await PostAsync<ResponseCommon<bool>>($"/api/auth/add-user-to-admin-role?userId={userId}", null);
             }
             catch (Exception ex)
             {
@@ -95,7 +101,7 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await GetAsync<ResponseCommon<UserBase>>("/get-current-user");
+                return await GetAsync<ResponseCommon<UserBase>>("/api/auth/get-current-user");
             }
             catch (Exception ex)
             {
@@ -114,7 +120,7 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await GetAsync< ResponseCommon<UserDto>>($"/get-userdto?id={id}");
+                return await GetAsync< ResponseCommon<UserDto>>($"/api/auth/get-userdto?id={id}");
             }
             catch (Exception ex)
             {
@@ -132,7 +138,7 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await GetAsync<ResponseCommon<List<ClientUser>>>("/list-users");
+                return await GetAsync<ResponseCommon<List<ClientUser>>>("/api/auth/list-users");
             }
             catch (Exception ex)
             {
