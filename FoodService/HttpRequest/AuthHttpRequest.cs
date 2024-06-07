@@ -101,7 +101,7 @@ namespace FoodService.HttpRequest
         {
             try
             {
-                return await GetAsync<ResponseCommon<UserBase>>("/api/auth/get-current-user");
+                return await GetAsync<ResponseCommon<UserBase>>("/api/auth/get-current-user", true);
             }
             catch (Exception ex)
             {

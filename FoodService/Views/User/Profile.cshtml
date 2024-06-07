@@ -1,0 +1,35 @@
+﻿@model FoodService.ViewModel.UserProfileViewModel;
+<style>
+    .side-meu {
+        background-color: #f8f9fa;
+        border-right: 1px solid var(--dark-color);
+    }
+
+</style>
+
+<div class="mt-5">
+    <div class="row flex-nowrap" style="max-height: 50rem;">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 side-meu">
+            @await Component.InvokeAsync("SideMenu")
+        </div>
+        <div class="col py-3">
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="~/images/user.png" class="img-thumbnail" />
+                        </div>
+                        <div class="col-md-9">
+                            <h2>@Model.Name</h2>
+                            <hr />
+                            <dl class="row">
+                                <dt class="col-sm-3">Email</dt>
+                                <dd class="col-sm-9">@Model.Email</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
