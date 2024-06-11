@@ -8,8 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6ABDB69B-DFF8-406E-918E-1C5CCDB44243}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.github\workflows\azure-foodservice-mvc.yml = .github\workflows\azure-foodservice-mvc.yml
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
-		.github\workflows\FoodService.yml = .github\workflows\FoodService.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
